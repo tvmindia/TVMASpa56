@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.tech.thrithvam.spaccounts.Login"
+    android:focusableInTouchMode="true"
+    android:background="@drawable/bottles_bg">
+<View
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#42944c83"
+    />
+<ImageView
+    android:layout_width="200dp"
+    android:layout_height="200dp"
+    android:padding="40dp"
+    android:adjustViewBounds="true"
+    android:layout_centerHorizontal="true"
+    android:id="@+id/logo"
+    android:layout_marginTop="50dp"
+    android:src="@drawable/logo"
+    android:scaleType="fitCenter"
+    />
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/input_layout_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        app:backgroundTint="@android:color/white"
+        android:textColor="@android:color/white"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/logo">
+
+        <EditText
+            android:id="@+id/input_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="E-mail"
+            android:textColorHint="@android:color/white"
+            android:textColor="@android:color/white"
+            tools:layout_editor_absoluteY="0dp"
+            tools:layout_editor_absoluteX="8dp"
+            app:backgroundTint="@android:color/white"
+            android:inputType="textEmailAddress" />
+
+    </android.support.design.widget.TextInputLayout>
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/input_layout_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        app:backgroundTint="@android:color/white"
+        android:textColor="@android:color/white"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/input_layout_email">
+
+        <EditText
+            android:id="@+id/input_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Password"
+            android:textColorHint="@android:color/white"
+            android:textColor="@android:color/white"
+            tools:layout_editor_absoluteY="0dp"
+            tools:layout_editor_absoluteX="8dp"
+            app:backgroundTint="@android:color/white"
+            android:inputType="textPassword"/>
+
+    </android.support.design.widget.TextInputLayout>
+
+    <com.dd.CircularProgressButton
+        android:id="@+id/btnWithText"
+        android:layout_width="150dp"
+        android:layout_height="48dp"
+        android:layout_below="@+id/input_layout_password"
+        android:layout_centerHorizontal="true"
+        android:textColor="@android:color/white"
+        android:textSize="14sp"
+        app:cpb_selectorIdle="@drawable/button_colors"
+        app:cpb_colorIndicator="@color/colorPrimary"
+        app:cpb_colorProgress="@android:color/transparent"
+        app:cpb_colorIndicatorBackground="@color/cpb_grey"
+        app:cpb_textComplete="Logged in"
+        app:cpb_textError="Error Occurred"
+        app:cpb_textIdle="Sign in"
+        android:padding="5dp"
+        app:cpb_cornerRadius="4dp"
+        app:cpb_paddingProgress="5dp"
+        android:layout_marginTop="8dp"/>
+
+
+</RelativeLayout>
