@@ -3,7 +3,9 @@ package com.tech.thrithvam.spaccounts;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.ArrayAdapter;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.LineChart;
@@ -43,5 +45,25 @@ public class HomeScreen extends AppCompatActivity {
         chart.invalidate(); // refresh
 
         chart.animateX(3000, Easing.EasingOption.Linear);
+
+
+        //chart Spinner
+        List<String> categories = new ArrayList<String>();
+        categories.add("Monthly Sale");
+        categories.add("Weekly Sale");
+        categories.add("Years Sale");
+        categories.add("Daily Sale");
+
+
+
+        // Creating adapter for spinner
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, R.layout.item_spinner, categories);
+
+        // Drop down layout style - list view with radio button
+        dataAdapter.setDropDownViewResource(R.layout.item_spinner);
+
+        // attaching data adapter to spinner
+        Spinner chartType=(Spinner)findViewById(R.id.chart_type);
+        chartType.setAdapter(dataAdapter);
     }
 }
