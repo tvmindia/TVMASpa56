@@ -1,12 +1,11 @@
 package com.tech.thrithvam.spaccounts;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.dd.CircularProgressButton;
 
@@ -16,6 +15,10 @@ public class Login extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        //delete this
+        startActivity(new Intent(this,HomeScreen.class));
+
         loginButton=(CircularProgressButton)findViewById(R.id.btnWithText);
         final EditText emailInput=(EditText)findViewById(R.id.input_email);
         final EditText passwordInput=(EditText)findViewById(R.id.input_password);

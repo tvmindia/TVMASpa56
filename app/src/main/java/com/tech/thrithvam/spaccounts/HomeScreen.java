@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.RelativeLayout;
 
+import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
@@ -41,6 +42,6 @@ public class HomeScreen extends AppCompatActivity {
         chart.setData(lineData);
         chart.invalidate(); // refresh
 
-        chart.animateX(3000);
+        chart.animateX(3000, Easing.EasingOption.Linear);
     }
 }
