@@ -150,7 +150,8 @@
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1">
+                    android:layout_weight="1"
+                    android:onClick="CustomersClick">
                     <ImageView
                         android:layout_width="30dp"
                         android:layout_height="30dp"

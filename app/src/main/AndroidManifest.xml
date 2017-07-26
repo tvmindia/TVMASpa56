@@ -30,8 +30,10 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ExpenseSummary"
+            android:label="Expense Summary"
             android:configChanges="orientation|screenSize" />
         <activity android:name=".Customers"
+            android:label="Customers"
             android:configChanges="orientation|screenSize"/>
     </application>
 

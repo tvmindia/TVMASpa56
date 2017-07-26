@@ -77,4 +77,9 @@ public class HomeScreen extends AppCompatActivity {
         Intent intent=new Intent(this,ExpenseSummary.class);
         startActivity(intent);
     }
+    public void CustomersClick(View view){
+        Intent intent=new Intent(this,Customers.class);
+        startActivity(intent);
+    }
+
 }
