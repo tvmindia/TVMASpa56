@@ -17,7 +17,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class InvoiceSummary extends AppCompatActivity {
 
@@ -108,8 +110,11 @@ public class InvoiceSummary extends AppCompatActivity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_invoice_summary, container, false);
-            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
+            LinearLayout fragmentLinear=(LinearLayout)rootView.findViewById(R.id.fragment_linear);
+            if( getArguments().getInt(ARG_SECTION_NUMBER)==1){
+                View invoiceHeader=inflater.inflate(R.layout.item_invoice_header,null);
+                fragmentLinear.addView(invoiceHeader);
+            }
             return rootView;
         }
     }

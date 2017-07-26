@@ -34,8 +34,8 @@ public class HomeScreen extends AppCompatActivity {
         List<Entry> entries = new ArrayList<Entry>();
 
 
-            // turn your data into Entry objects
-            entries.add(new Entry(5,4));
+        // turn your data into Entry objects
+        entries.add(new Entry(5,4));
         entries.add(new Entry(6,2));
         entries.add(new Entry(7,7));
         entries.add(new Entry(8,3));
