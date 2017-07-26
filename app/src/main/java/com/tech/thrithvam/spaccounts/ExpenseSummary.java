@@ -1,10 +1,14 @@
 package com.tech.thrithvam.spaccounts;
 
+import android.content.Context;
 import android.graphics.PorterDuff;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 
 import java.util.ArrayList;
@@ -31,6 +35,13 @@ public class ExpenseSummary extends AppCompatActivity {
         }
         else {
             dataType.getBackground().setColorFilter(getResources().getColor(R.color.colorPrimary), PorterDuff.Mode.SRC_ATOP);
+        }
+
+        LayoutInflater inflater = (LayoutInflater)getApplicationContext().getSystemService (Context.LAYOUT_INFLATER_SERVICE);
+        LinearLayout dataValuesLinear=(LinearLayout)findViewById(R.id.data_values_linear);
+        for(int i=0;i<10;i++){
+            View dataItem=inflater.inflate(R.layout.item_label_value,null);
+            dataValuesLinear.addView(dataItem);
         }
     }
 }
