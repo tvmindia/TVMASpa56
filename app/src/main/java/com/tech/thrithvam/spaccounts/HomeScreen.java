@@ -1,8 +1,10 @@
 package com.tech.thrithvam.spaccounts;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
@@ -65,5 +67,14 @@ public class HomeScreen extends AppCompatActivity {
         // attaching data adapter to spinner
         Spinner chartType=(Spinner)findViewById(R.id.chart_type);
         chartType.setAdapter(dataAdapter);
+    }
+
+    public void InvoiceClick(View view){
+        Intent intent=new Intent(this,InvoiceSummary.class);
+        startActivity(intent);
+    }
+    public void ExpenseClick(View view){
+        Intent intent=new Intent(this,ExpenseSummary.class);
+        startActivity(intent);
     }
 }

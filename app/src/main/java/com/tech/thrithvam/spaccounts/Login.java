@@ -16,9 +16,6 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        //delete this
-        startActivity(new Intent(this,HomeScreen.class));
-
         loginButton=(CircularProgressButton)findViewById(R.id.btnWithText);
         final EditText emailInput=(EditText)findViewById(R.id.input_email);
         final EditText passwordInput=(EditText)findViewById(R.id.input_password);
