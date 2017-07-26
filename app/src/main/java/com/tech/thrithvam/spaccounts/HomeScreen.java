@@ -2,6 +2,8 @@ package com.tech.thrithvam.spaccounts;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -55,18 +57,16 @@ public class HomeScreen extends AppCompatActivity {
         categories.add("Weekly Sale");
         categories.add("Years Sale");
         categories.add("Daily Sale");
-
-
-
-        // Creating adapter for spinner
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, R.layout.item_spinner, categories);
-
-        // Drop down layout style - list view with radio button
         dataAdapter.setDropDownViewResource(R.layout.item_spinner);
-
-        // attaching data adapter to spinner
         Spinner chartType=(Spinner)findViewById(R.id.chart_type);
         chartType.setAdapter(dataAdapter);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            chartType.getBackground().setColorFilter(getColor(R.color.colorPrimary), PorterDuff.Mode.SRC_ATOP);
+        }
+        else {
+            chartType.getBackground().setColorFilter(getResources().getColor(R.color.colorPrimary), PorterDuff.Mode.SRC_ATOP);
+        }
     }
 
     public void InvoiceClick(View view){
