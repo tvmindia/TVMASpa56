@@ -10,9 +10,9 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".Login"
+            android:configChanges="orientation|screenSize"
             android:theme="@style/Theme.Design.NoActionBar"
-            android:windowSoftInputMode="stateHidden"
-            android:configChanges="orientation|screenSize">
+            android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -21,14 +21,17 @@
         </activity>
         <activity
             android:name=".HomeScreen"
-            android:screenOrientation="portrait"
-            android:configChanges="orientation|screenSize"/>
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".InvoiceSummary"
+            android:configChanges="orientation|screenSize"
             android:label="@string/title_activity_invoice_summary"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:configChanges="orientation|screenSize"/>
-        <activity android:name=".ExpenseSummary"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ExpenseSummary"
+            android:configChanges="orientation|screenSize" />
+        <activity android:name=".Customers"
             android:configChanges="orientation|screenSize"/>
     </application>
 
