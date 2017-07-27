@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">SP Accounts</string>
     <string name="title_activity_invoice_summary">Invoice Summary</string>
-    <string name="action_settings">Settings</string>
     <string name="url" translatable="false">http://192.168.1.109:456/</string>
 </resources>
