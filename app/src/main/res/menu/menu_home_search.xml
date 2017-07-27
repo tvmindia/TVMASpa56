@@ -1,0 +1,16 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.tech.thrithvam.spaccounts.InvoiceSummary">
+    <item
+        android:id="@+id/menu_search"
+        android:title="Search"
+        app:actionViewClass="android.support.v7.widget.SearchView"
+        app:showAsAction="always"/>
+    <item
+        android:id="@+id/menu_home"
+        android:orderInCategory="100"
+        android:title="Home"
+        android:icon="@drawable/home"
+        app:showAsAction="ifRoom" />
+</menu>

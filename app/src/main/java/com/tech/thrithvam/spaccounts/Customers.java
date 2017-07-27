@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Customers extends AppCompatActivity {
-
+    CustomAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,7 +35,7 @@ public class Customers extends AppCompatActivity {
             }
             customerData.add(data);
         }
-        CustomAdapter adapter=new CustomAdapter(Customers.this,customerData,"Customers");
+        adapter=new CustomAdapter(Customers.this,customerData,"Customers");
         ListView customersList=(ListView)findViewById(R.id.customers_list);
         customersList.setAdapter(adapter);
     }
@@ -43,9 +44,31 @@ public class Customers extends AppCompatActivity {
         Intent callIntent = new Intent(Intent.ACTION_DIAL, number);
         startActivity(callIntent);
     }
+    SearchView searchView;
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_home, menu);
+        getMenuInflater().inflate(R.menu.menu_home_search, menu);
+        //Searching-------------------
+        searchView=(SearchView) menu.findItem(R.id.menu_search).getActionView();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                if(adapter!=null){//for searching
+                    adapter.getFilter(1).filter(searchView.getQuery().toString().trim());
+                }
+                return false;
+            }
+        });
+        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                return false;
+            }
+        });
         return true;
     }
 
