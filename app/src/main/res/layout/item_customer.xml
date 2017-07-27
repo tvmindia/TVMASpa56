@@ -24,8 +24,17 @@
             android:text="Customer Name"
             android:textColor="@color/primary_text"
             android:textSize="14sp"
-            android:layout_centerVertical="true"
             android:id="@+id/customer_name"
+            android:layout_toLeftOf="@+id/call_button"
+            android:layout_toStartOf="@+id/call_button" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/customer_name"
+            android:text="853543544152"
+            android:textColor="@color/secondary_text"
+            android:textSize="10sp"
+            android:id="@+id/phone"
             android:layout_toLeftOf="@+id/call_button"
             android:layout_toStartOf="@+id/call_button" />
         <ImageView

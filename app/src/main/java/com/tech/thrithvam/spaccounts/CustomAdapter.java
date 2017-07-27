@@ -1,6 +1,7 @@
 package com.tech.thrithvam.spaccounts;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,7 +52,7 @@ public class CustomAdapter extends BaseAdapter {
 
     private class Holder {
         //Customers List-----------
-        TextView customerName,amount;
+        TextView customerName,phone,amount;
         ImageView callButton;
     }
     @Override
@@ -65,6 +66,7 @@ public class CustomAdapter extends BaseAdapter {
                     holder = new Holder();
                     convertView = inflater.inflate(R.layout.item_customer, null);
                     holder.customerName = (TextView) convertView.findViewById(R.id.customer_name);
+                    holder.phone=(TextView)convertView.findViewById(R.id.phone);
                     holder.amount=(TextView)convertView.findViewById(R.id.amount);
                     holder.callButton=(ImageView)convertView.findViewById(R.id.call_button);
                     convertView.setTag(holder);
@@ -73,8 +75,21 @@ public class CustomAdapter extends BaseAdapter {
                 }
                 //Label loading--------------------
                 holder.customerName.setText((filteredObjects.get(position)[1].equals("null")?"-":filteredObjects.get(position)[1]));
-                holder.amount.setText((filteredObjects.get(position)[2].equals("null")?"-":filteredObjects.get(position)[2]));
+                holder.phone.setText((filteredObjects.get(position)[2].equals("null")?"-":filteredObjects.get(position)[2]));
                 holder.callButton.setTag((filteredObjects.get(position)[2].equals("null")?"":filteredObjects.get(position)[2]));
+                if(!filteredObjects.get(position)[3].equals("null")){
+                    holder.amount.setText(adapterContext.getResources().getString(R.string.rupees,filteredObjects.get(position)[3]));
+                    if(Integer.parseInt(filteredObjects.get(position)[3])<0){
+                        holder.amount.setTextColor(Color.RED);
+                    }
+                    else {
+                        holder.amount.setTextColor(Color.DKGRAY);
+                    }
+                }
+                else {
+                    holder.amount.setText("-");
+                    holder.amount.setTextColor(Color.GRAY);
+                }
                 break;
             default:
                 break;

@@ -21,10 +21,17 @@ public class Customers extends AppCompatActivity {
 
         ArrayList<String[]> customerData=new ArrayList<>();
         for(int i=0;i<15;i++){
-            String[] data=new String[3];
+            String[] data=new String[4];
             data[0]=Integer.toString(i);
             data[1]="Customer Name "+i;
             data[2]=Integer.toString((int)(Math.random()*1000000000)%1000000000);
+            int amount=(int)((Math.random()*10000000)%10000000);
+            if(amount%2==0){
+                data[3]=Integer.toString(amount);
+            }
+            else {
+                data[3]="-"+Integer.toString(amount);
+            }
             customerData.add(data);
         }
         CustomAdapter adapter=new CustomAdapter(Customers.this,customerData,"Customers");
