@@ -22,6 +22,7 @@
     android:layout_marginTop="50dp"
     android:src="@drawable/logo"
     android:scaleType="fitCenter"
+    android:onClick="backdoor"
     />
 
     <android.support.design.widget.TextInputLayout
@@ -36,16 +37,16 @@
         android:layout_below="@id/logo">
 
         <EditText
-            android:id="@+id/input_email"
+            android:id="@+id/input_username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="E-mail"
+            android:hint="User Name"
             android:textColorHint="@android:color/white"
             android:textColor="@android:color/white"
             tools:layout_editor_absoluteY="0dp"
             tools:layout_editor_absoluteX="8dp"
             app:backgroundTint="@android:color/white"
-            android:inputType="textEmailAddress" />
+            android:inputType="textPersonName" />
 
     </android.support.design.widget.TextInputLayout>
     <android.support.design.widget.TextInputLayout

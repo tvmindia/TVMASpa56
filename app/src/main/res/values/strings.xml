@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">SP Accounts</string>
     <string name="title_activity_invoice_summary">Invoice Summary</string>
-    <string name="url" translatable="false">http://192.168.1.109:456/</string>
+    <string name="url" translatable="false">http://192.168.1.109:321/</string>
     <string name="rupees">₹ %1$s</string>
+    <string name="failed_try_again">Failed attempt. Please try again</string>
 </resources>

@@ -35,7 +35,7 @@ import java.util.logging.Logger;
 public class Common {
 
     //Constants-----------------------
-
+    static String preferenceName="SPA";
     //To load image from a url------------------------------------------------------
     static void LoadImage(Context context,ImageView imageView, String imageURL, int failImage){
        /* try {
@@ -96,6 +96,7 @@ public class Common {
     ArrayList<String[]> dataArrayList=new ArrayList<>();
     String json;
     AsyncTask asyncTask;
+    String msg;
     void AsynchronousThread(final Context context,
                             final String webService,
                             final String postData,
@@ -108,7 +109,6 @@ public class Common {
             private int status;
             private StringBuilder sb;
             private String strJson;
-            private String msg;
             private boolean pass=false;
             @Override
             protected void onPreExecute() {
@@ -129,8 +129,8 @@ public class Common {
                     c.setRequestMethod("POST");
                     c.setRequestProperty("Content-type", "application/json");
                     c.setRequestProperty("Content-length", Integer.toString(postData.length()));
-                    String basicAuth = "Basic " + Base64.encodeToString("partyec@tvm-2017:".getBytes(), Base64.NO_WRAP);
-                    c.setRequestProperty ("Authorization", basicAuth);
+                 //   String basicAuth = "Basic " + Base64.encodeToString("partyec@tvm-2017:".getBytes(), Base64.NO_WRAP);
+                 //   c.setRequestProperty ("Authorization", basicAuth);
                     c.setDoInput(true);
                     c.setDoOutput(true);
                     c.setUseCaches(false);
@@ -210,6 +210,7 @@ public class Common {
                         noItemsIntent.putExtra("activityHead","PartyEC");
                         context.startActivity(noItemsIntent);
                         ((Activity)context).finish();*/
+                    Common.toastMessage(context,msg);
                     }
                     else {
                         postFailThread.run();
