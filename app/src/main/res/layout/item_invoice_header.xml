@@ -10,7 +10,6 @@
         app:cardCornerRadius="4dp"
         app:cardElevation="3dp"
         app:cardUseCompatPadding="true"
-        android:id="@+id/chart_card"
         android:animateLayoutChanges="true">
         <LinearLayout
             android:layout_width="match_parent"
@@ -20,23 +19,19 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Header details of invoice"
-                android:textColor="@color/primary_text"/>
+                android:text="Amount"
+                android:textSize="16sp"
+                android:gravity="end"
+                android:textColor="@color/primary_text"
+                android:id="@+id/amount"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Header details of invoice"
-                android:textColor="@color/primary_text"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Header details of invoice"
-                android:textColor="@color/primary_text"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Header details of invoice"
-                android:textColor="@color/primary_text"/>
+                android:text="Count"
+                android:textSize="14sp"
+                android:gravity="end"
+                android:textColor="@color/primary_text"
+                android:id="@+id/count"/>
         </LinearLayout>
         </android.support.v7.widget.CardView>
 </LinearLayout>

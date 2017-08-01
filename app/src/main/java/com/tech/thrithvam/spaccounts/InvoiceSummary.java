@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.wang.avi.AVLoadingIndicatorView;
 
@@ -57,6 +58,12 @@ public class InvoiceSummary extends AppCompatActivity {
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         salesORpurchase=getIntent().getExtras().getInt("salesORpurchase");
+        if(salesORpurchase==Common.SALES){
+            getSupportActionBar().setTitle("Sales Summary");
+        }
+        else {
+            getSupportActionBar().setTitle("Purchase Summary");
+        }
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
@@ -114,14 +121,12 @@ public class InvoiceSummary extends AppCompatActivity {
         }
 
         @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+        public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_invoice_summary, container, false);
-            LinearLayout fragmentLinear=(LinearLayout)rootView.findViewById(R.id.fragment_linear);
+            final View rootView = inflater.inflate(R.layout.fragment_invoice_summary, container, false);
+            final LinearLayout fragmentLinear=(LinearLayout)rootView.findViewById(R.id.fragment_linear);
             final ListView invoiceList=(ListView)rootView.findViewById(R.id.invoice_list);
-            if( getArguments().getInt(ARG_SECTION_NUMBER)==1){
-                View invoiceHeader=inflater.inflate(R.layout.item_invoice_header,null);
-                fragmentLinear.addView(invoiceHeader);
+            if( getArguments().getInt(ARG_SECTION_NUMBER)==1){//outstanding
                 if(salesORpurchase==Common.SALES) {
                     //Threading------------------------------------------------------------------------------------------------------
                     final Common common = new Common();
@@ -132,11 +137,12 @@ public class InvoiceSummary extends AppCompatActivity {
                     Runnable postThread = new Runnable() {
                         @Override
                         public void run() {
-                            JSONObject jsonObject = null;
+                            JSONObject jsonObject;
                             try {
-                                JSONArray invoices = new JSONArray(common.json);
+                                jsonObject=new JSONObject(common.json);
+                                JSONArray invoices = jsonObject.getJSONArray("OutstandingList");
                                 if(invoices.length()==0){
-                                    Common.toastMessage(getContext(),R.string.no_items);
+                                    Common.toastMessage(getContext(),getContext().getResources().getString(R.string.no_items)+" in outstanding list");
                                     return;
                                 }
                                 ArrayList<String[]> invoiceListData = new ArrayList<>();
@@ -154,6 +160,13 @@ public class InvoiceSummary extends AppCompatActivity {
                                 }
                                 CustomAdapter adapter = new CustomAdapter(getContext(), invoiceListData, Common.SALESLIST);
                                 invoiceList.setAdapter(adapter);
+
+                                View invoiceHeader=inflater.inflate(R.layout.item_invoice_header,null);
+                                fragmentLinear.addView(invoiceHeader);
+                                JSONObject summary = jsonObject.getJSONObject("Summary");
+                                ((TextView)invoiceHeader.findViewById(R.id.amount)).setText("Outstanding: "+ summary.getString("AmountFormatted"));
+                                ((TextView)invoiceHeader.findViewById(R.id.count)).setText("No of Invoices: "+ summary.getString("count"));
+                                (rootView.findViewById(R.id.list_card)).setVisibility(View.VISIBLE);
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -162,7 +175,7 @@ public class InvoiceSummary extends AppCompatActivity {
                     Runnable postThreadFailed = new Runnable() {
                         @Override
                         public void run() {
-                            Common.toastMessage(getContext(), R.string.failed_try_again);
+                            Common.toastMessage(getContext(), R.string.failed_server);
                         }
                     };
 
@@ -176,7 +189,71 @@ public class InvoiceSummary extends AppCompatActivity {
                     asyncTasks.add(common.asyncTask);
                     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                 }
+            }
+            else if(getArguments().getInt(ARG_SECTION_NUMBER)==2) {//open
+                if (salesORpurchase == Common.SALES) {
+                    //Threading------------------------------------------------------------------------------------------------------
+                    final Common common = new Common();
+                    String webService = "API/InvoiceSummary/GetOpenInvoicesForMobile";
+                    String postData = "";
+                    AVLoadingIndicatorView loadingIndicator = (AVLoadingIndicatorView) rootView.findViewById(R.id.loading_indicator);
+                    String[] dataColumns = {};
+                    Runnable postThread = new Runnable() {
+                        @Override
+                        public void run() {
+                            JSONObject jsonObject;
+                            try {
+                                jsonObject=new JSONObject(common.json);
+                                JSONArray invoices = jsonObject.getJSONArray("OpeningList");
+                                if(invoices.length()==0){
+                                    Common.toastMessage(getContext(),getContext().getResources().getString(R.string.no_items)+" in open list");
+                                    return;
+                                }
+                                ArrayList<String[]> invoiceListData = new ArrayList<>();
+                                for (int i = 0; i < invoices.length(); i++) {
+                                    JSONObject jsonObject1 = invoices.getJSONObject(i);
+                                    String[] data = new String[7];
+                                    data[0] = jsonObject1.getString("ID");
+                                    data[1] = jsonObject1.getString("InvoiceNo");
+                                    data[2] = jsonObject1.getJSONObject("customerObj").getString("ID");
+                                    data[3] = jsonObject1.getJSONObject("customerObj").getString("ContactPerson");
+                                    data[4] = jsonObject1.getString("PaymentDueDateFormatted");
+                                    data[5] = jsonObject1.getString("BalanceDue");
+                                    data[6] = jsonObject1.getString("PaidAmount");
+                                    invoiceListData.add(data);
+                                }
+                                CustomAdapter adapter = new CustomAdapter(getContext(), invoiceListData, Common.SALESLIST);
+                                invoiceList.setAdapter(adapter);
 
+
+                                View invoiceHeader = inflater.inflate(R.layout.item_invoice_header, null);
+                                fragmentLinear.addView(invoiceHeader);
+                                JSONObject summary = jsonObject.getJSONObject("Summary");
+                                ((TextView)invoiceHeader.findViewById(R.id.amount)).setText("Outstanding: "+ summary.getString("AmountFormatted"));
+                                ((TextView)invoiceHeader.findViewById(R.id.count)).setText("No of Invoices: "+ summary.getString("count"));
+                                (rootView.findViewById(R.id.list_card)).setVisibility(View.VISIBLE);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    };
+                    Runnable postThreadFailed = new Runnable() {
+                        @Override
+                        public void run() {
+                            Common.toastMessage(getContext(), R.string.failed_server + common.msg);
+                        }
+                    };
+
+                    common.AsynchronousThread(getContext(),
+                            webService,
+                            postData,
+                            loadingIndicator,
+                            dataColumns,
+                            postThread,
+                            postThreadFailed);
+                    asyncTasks.add(common.asyncTask);
+                    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                }
             }
             return rootView;
         }
