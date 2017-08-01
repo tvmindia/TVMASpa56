@@ -8,12 +8,21 @@
     android:background="@drawable/primary_gradient"
     android:animateLayoutChanges="true"
 >
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/welcome"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:textSize="10sp"
+        android:textColor="#96ffffff"
+        android:id="@+id/welcome"/>
     <android.support.v7.widget.CardView
+        android:layout_below="@id/welcome"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="7dp"
         android:layout_marginRight="7dp"
-        android:layout_marginTop="5dp"
         app:cardCornerRadius="4dp"
         app:cardElevation="3dp"
         app:cardUseCompatPadding="true"
@@ -76,6 +85,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                android:paddingLeft="7dp"
+                android:paddingRight="7dp"
+                android:paddingTop="7dp"
                 android:orientation="horizontal"
                 android:layout_weight="1"
                 android:gravity="center">
@@ -83,7 +95,40 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:onClick="InvoiceClick">
+                    android:onClick="InvoiceSalesClick">
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/sale_invoice"
+                        android:scaleType="fitCenter"
+                        android:tint="@color/colorPrimary"
+                        android:layout_centerHorizontal="true"
+                        android:id="@+id/sales_icon"
+                        android:layout_margin="5dp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Sales\nSummary"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="14sp"
+                        android:layout_centerVertical="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_below="@id/sales_icon"
+                        android:gravity="center"
+                        android:paddingLeft="3dp"
+                        android:paddingRight="3dp"
+                        />
+                </RelativeLayout>
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorPrimary"
+                    android:layout_marginTop="10dp"/>
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:onClick="InvoicePurchaseClick">
                     <ImageView
                         android:layout_width="30dp"
                         android:layout_height="30dp"
@@ -91,17 +136,20 @@
                         android:scaleType="fitCenter"
                         android:tint="@color/colorPrimary"
                         android:layout_centerHorizontal="true"
-                        android:id="@+id/invoice_icon"
+                        android:id="@+id/purchase_icon"
                         android:layout_margin="5dp"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Invoice Summary"
+                        android:text="Purchase Summary"
                         android:textColor="@color/colorAccent"
                         android:textSize="14sp"
                         android:layout_centerVertical="true"
+                        android:gravity="center"
                         android:layout_centerHorizontal="true"
-                        android:layout_below="@id/invoice_icon"
+                        android:layout_below="@id/purchase_icon"
+                        android:paddingLeft="3dp"
+                        android:paddingRight="3dp"
                         />
                 </RelativeLayout>
                 <View
@@ -126,12 +174,15 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Expense Summary"
+                        android:text="Other Expense Summary"
                         android:textColor="@color/colorAccent"
                         android:textSize="14sp"
                         android:layout_centerVertical="true"
                         android:layout_centerHorizontal="true"
                         android:layout_below="@+id/expense_icon"
+                        android:gravity="center"
+                        android:paddingLeft="3dp"
+                        android:paddingRight="3dp"
                         />
                 </RelativeLayout>
             </LinearLayout>
@@ -170,6 +221,9 @@
                         android:layout_centerVertical="true"
                         android:layout_centerHorizontal="true"
                         android:layout_below="@id/customers_icon"
+                        android:gravity="center"
+                        android:paddingLeft="3dp"
+                        android:paddingRight="3dp"
                         />
                 </RelativeLayout>
                 <View
@@ -199,6 +253,9 @@
                         android:layout_centerVertical="true"
                         android:layout_centerHorizontal="true"
                         android:layout_below="@id/supplier_icon"
+                        android:gravity="center"
+                        android:paddingLeft="3dp"
+                        android:paddingRight="3dp"
                         />
                 </RelativeLayout>
             </LinearLayout>

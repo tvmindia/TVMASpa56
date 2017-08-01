@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.tech.thrithvam.spaccounts.InvoiceSummary$PlaceholderFragment">
 
     <LinearLayout
@@ -9,4 +10,24 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:id="@+id/fragment_linear"/>
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/invoice_list"
+        android:divider="@color/secondary_text"
+        android:dividerHeight="0.5dp"
+        android:clipToPadding="false"
+        android:padding="5dp"
+        android:layout_below="@id/fragment_linear"
+        />
+    <com.wang.avi.AVLoadingIndicatorView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:indicatorName="BallScaleMultipleIndicator"
+        android:layout_gravity="center"
+        app:indicatorColor="@color/colorAccent"
+        android:id="@+id/loading_indicator"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        />
 </RelativeLayout>

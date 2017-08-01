@@ -1,15 +1,17 @@
 package com.tech.thrithvam.spaccounts;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Build;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.LineChart;
@@ -26,6 +28,10 @@ public class HomeScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
+
+        SharedPreferences sharedpreferences = getSharedPreferences(Common.preferenceName, Context.MODE_PRIVATE);
+        String userName=sharedpreferences.getString("UserName","");
+        ((TextView)findViewById(R.id.welcome)).setText(getResources().getString(R.string.welcome,userName));
 
         LineChart chart = (LineChart) findViewById(R.id.chart);
 
@@ -69,8 +75,14 @@ public class HomeScreen extends AppCompatActivity {
         }
     }
 
-    public void InvoiceClick(View view){
+    public void InvoiceSalesClick(View view){
         Intent intent=new Intent(this,InvoiceSummary.class);
+        intent.putExtra("salesORpurchase",Common.SALES);
+        startActivity(intent);
+    }
+    public void InvoicePurchaseClick(View view){
+        Intent intent=new Intent(this,InvoiceSummary.class);
+        intent.putExtra("salesORpurchase",Common.PURCHASE);
         startActivity(intent);
     }
     public void ExpenseClick(View view){

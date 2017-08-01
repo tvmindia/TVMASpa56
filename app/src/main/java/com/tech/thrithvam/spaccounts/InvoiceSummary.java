@@ -1,22 +1,30 @@
 package com.tech.thrithvam.spaccounts;
 
 import android.content.Intent;
+import android.os.AsyncTask;
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-
 import android.widget.LinearLayout;
+import android.widget.ListView;
+
+import com.wang.avi.AVLoadingIndicatorView;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 public class InvoiceSummary extends AppCompatActivity {
 
@@ -35,6 +43,8 @@ public class InvoiceSummary extends AppCompatActivity {
      */
     private ViewPager mViewPager;
 
+    static int salesORpurchase;
+    static ArrayList<AsyncTask> asyncTasks=new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +55,8 @@ public class InvoiceSummary extends AppCompatActivity {
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+
+        salesORpurchase=getIntent().getExtras().getInt("salesORpurchase");
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
@@ -78,9 +90,7 @@ public class InvoiceSummary extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    /**
-     * A placeholder fragment containing a simple view.
-     */
+
     public static class PlaceholderFragment extends Fragment {
         /**
          * The fragment argument representing the section number for this
@@ -108,9 +118,65 @@ public class InvoiceSummary extends AppCompatActivity {
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_invoice_summary, container, false);
             LinearLayout fragmentLinear=(LinearLayout)rootView.findViewById(R.id.fragment_linear);
+            final ListView invoiceList=(ListView)rootView.findViewById(R.id.invoice_list);
             if( getArguments().getInt(ARG_SECTION_NUMBER)==1){
                 View invoiceHeader=inflater.inflate(R.layout.item_invoice_header,null);
                 fragmentLinear.addView(invoiceHeader);
+                if(salesORpurchase==Common.SALES) {
+                    //Threading------------------------------------------------------------------------------------------------------
+                    final Common common = new Common();
+                    String webService = "API/InvoiceSummary/GetOutstandingInvoicesForMobile";
+                    String postData = "";
+                    AVLoadingIndicatorView loadingIndicator =(AVLoadingIndicatorView) rootView.findViewById(R.id.loading_indicator);
+                    String[] dataColumns = {};
+                    Runnable postThread = new Runnable() {
+                        @Override
+                        public void run() {
+                            JSONObject jsonObject = null;
+                            try {
+                                JSONArray invoices = new JSONArray(common.json);
+                                if(invoices.length()==0){
+                                    Common.toastMessage(getContext(),R.string.no_items);
+                                    return;
+                                }
+                                ArrayList<String[]> invoiceListData = new ArrayList<>();
+                                for (int i = 0; i < invoices.length(); i++) {
+                                    JSONObject jsonObject1 = invoices.getJSONObject(i);
+                                    String[] data = new String[7];
+                                    data[0] = jsonObject1.getString("ID");
+                                    data[1] = jsonObject1.getString("InvoiceNo");
+                                    data[2] = jsonObject1.getJSONObject("customerObj").getString("ID");
+                                    data[3] = jsonObject1.getJSONObject("customerObj").getString("ContactPerson");
+                                    data[4] = jsonObject1.getString("PaymentDueDateFormatted");
+                                    data[5] = jsonObject1.getString("BalanceDue");
+                                    data[6] = jsonObject1.getString("PaidAmount");
+                                    invoiceListData.add(data);
+                                }
+                                CustomAdapter adapter = new CustomAdapter(getContext(), invoiceListData, Common.SALESLIST);
+                                invoiceList.setAdapter(adapter);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    };
+                    Runnable postThreadFailed = new Runnable() {
+                        @Override
+                        public void run() {
+                            Common.toastMessage(getContext(), R.string.failed_try_again);
+                        }
+                    };
+
+                    common.AsynchronousThread(getContext(),
+                            webService,
+                            postData,
+                            loadingIndicator,
+                            dataColumns,
+                            postThread,
+                            postThreadFailed);
+                    asyncTasks.add(common.asyncTask);
+                    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                }
+
             }
             return rootView;
         }
@@ -149,5 +215,13 @@ public class InvoiceSummary extends AppCompatActivity {
             }
             return null;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        for(int i=0;i<asyncTasks.size();i++){
+            asyncTasks.get(i).cancel(true);
+        }
+        super.onBackPressed();
     }
 }

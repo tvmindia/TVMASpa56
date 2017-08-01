@@ -2,8 +2,8 @@ package com.tech.thrithvam.spaccounts;
 
 import android.content.Intent;
 import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -11,7 +11,6 @@ import android.view.View;
 import android.widget.ListView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Customers extends AppCompatActivity {
     CustomAdapter adapter;
@@ -35,7 +34,7 @@ public class Customers extends AppCompatActivity {
             }
             customerData.add(data);
         }
-        adapter=new CustomAdapter(Customers.this,customerData,"Customers");
+        adapter=new CustomAdapter(Customers.this,customerData,Common.CUSTOMERSLIST);
         ListView customersList=(ListView)findViewById(R.id.customers_list);
         customersList.setAdapter(adapter);
     }

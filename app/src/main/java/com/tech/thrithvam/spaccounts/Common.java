@@ -1,17 +1,11 @@
 package com.tech.thrithvam.spaccounts;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.support.annotation.StringRes;
-import android.support.design.widget.NavigationView;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.content.IntentCompat;
-import android.util.Base64;
 import android.view.Gravity;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -36,6 +30,11 @@ public class Common {
 
     //Constants-----------------------
     static String preferenceName="SPA";
+    static int SALES=123,PURCHASE=456;
+    static final String SALESLIST="sales",
+            PURCHASELIST="purchase",
+            CUSTOMERSLIST="customer"
+                    ;
     //To load image from a url------------------------------------------------------
     static void LoadImage(Context context,ImageView imageView, String imageURL, int failImage){
        /* try {
