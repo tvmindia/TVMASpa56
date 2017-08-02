@@ -114,6 +114,27 @@ public class CustomAdapter extends BaseAdapter {
                 holder.paidAmount.setText((filteredObjects.get(position)[6].equals("null")?"-":adapterContext.getResources().getString(R.string.paid_amount,filteredObjects.get(position)[6])));
                 holder.dueDate.setText((filteredObjects.get(position)[4].equals("null")?"-":adapterContext.getResources().getString(R.string.due_date,filteredObjects.get(position)[4])));
                 break;
+            //--------------------------for purchase invoice list items------------------
+            case Common.PURCHASELIST:
+                if (convertView == null) {
+                    holder = new Holder();
+                    convertView = inflater.inflate(R.layout.item_purchase_invoice, null);
+                    holder.invoiceNo = (TextView) convertView.findViewById(R.id.invoice_no);
+                    holder.contactPerson=(TextView)convertView.findViewById(R.id.contact_person_name);
+                    holder.balAmount=(TextView)convertView.findViewById(R.id.balance_amount);
+                    holder.paidAmount = (TextView) convertView.findViewById(R.id.paid_amount);
+                    holder.dueDate=(TextView)convertView.findViewById(R.id.due_date);
+                    convertView.setTag(holder);
+                } else {
+                    holder = (Holder) convertView.getTag();
+                }
+                //Label loading--------------------
+                holder.invoiceNo.setText((filteredObjects.get(position)[1].equals("null")?"-":filteredObjects.get(position)[1]));
+                holder.contactPerson.setText((filteredObjects.get(position)[3].equals("null")?"-":filteredObjects.get(position)[3]));
+                holder.balAmount.setText((filteredObjects.get(position)[5].equals("null")?"-":adapterContext.getResources().getString(R.string.rupees,filteredObjects.get(position)[5])));
+                holder.paidAmount.setText((filteredObjects.get(position)[6].equals("null")?"-":adapterContext.getResources().getString(R.string.paid_amount,filteredObjects.get(position)[6])));
+                holder.dueDate.setText((filteredObjects.get(position)[4].equals("null")?"-":adapterContext.getResources().getString(R.string.due_date,filteredObjects.get(position)[4])));
+                break;
             default:
                 break;
         }

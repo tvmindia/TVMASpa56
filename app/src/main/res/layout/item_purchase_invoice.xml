@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="7dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="InvoiceNO"
+            android:textColor="@color/primary_text"
+            android:textSize="17sp"
+            android:id="@+id/invoice_no"
+            android:layout_toLeftOf="@+id/balance_amount"
+            android:layout_toStartOf="@+id/balance_amount" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Contact Person Name"
+            android:textColor="@color/primary_text"
+            android:textSize="13sp"
+            android:id="@+id/contact_person_name"
+            android:layout_below="@id/invoice_no"
+            android:layout_toLeftOf="@+id/balance_amount"
+            android:layout_toStartOf="@+id/balance_amount" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/balance_amount"
+            android:textColor="@color/primary_text"
+            android:textSize="12sp"
+            android:id="@+id/balance_amount_label"
+            android:layout_toLeftOf="@+id/balance_amount"
+            android:layout_toStartOf="@+id/balance_amount"
+            android:layout_alignBottom="@+id/balance_amount"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/rupees"
+            android:textColor="@color/primary_text"
+            android:textSize="18sp"
+            android:id="@+id/balance_amount"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/paid_amount"
+            android:textColor="@color/secondary_text"
+            android:textSize="12sp"
+            android:id="@+id/paid_amount"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/balance_amount"
+            android:layout_alignParentEnd="true"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/due_date"
+            android:textColor="@color/primary_text"
+            android:textSize="13sp"
+            android:id="@+id/due_date"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/paid_amount"
+            android:layout_alignParentEnd="true"/>
+    </RelativeLayout>
+</LinearLayout>
