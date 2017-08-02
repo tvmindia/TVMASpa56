@@ -2,6 +2,7 @@ package com.tech.thrithvam.spaccounts;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
@@ -10,33 +11,56 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 
+import com.wang.avi.AVLoadingIndicatorView;
+
 import java.util.ArrayList;
 
 public class Customers extends AppCompatActivity {
     CustomAdapter adapter;
+    static ArrayList<AsyncTask> asyncTasks=new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customers);
+       getCustomers();
+    }
+    void getCustomers(){
+        //Threading------------------------------------------------------------------------------------------------------
+        final Common common = new Common();
+        String webService = "API/Customer/GetCustomerDetailsMobile";
+        String postData = "";
+        AVLoadingIndicatorView loadingIndicator = (AVLoadingIndicatorView) findViewById(R.id.loading_indicator);
+        String[] dataColumns = {"ID",//0
+                                "CompanyName",//1
+                                "ContactPerson",//2
+                                "Mobile",//3
+                                "BillingAddress",//4
+                                "OutStanding"//5
+                                };
+        Runnable postThread = new Runnable() {
+            @Override
+            public void run() {
+                adapter=new CustomAdapter(Customers.this,common.dataArrayList,Common.CUSTOMERSLIST);
+                ListView customersList=(ListView)findViewById(R.id.customers_list);
+                customersList.setAdapter(adapter);
+            }
+        };
+        Runnable postThreadFailed = new Runnable() {
+            @Override
+            public void run() {
+                Common.toastMessage(Customers.this, R.string.failed_server);
+            }
+        };
 
-        ArrayList<String[]> customerData=new ArrayList<>();
-        for(int i=0;i<15;i++){
-            String[] data=new String[4];
-            data[0]=Integer.toString(i);
-            data[1]="Customer Name "+i;
-            data[2]=Integer.toString((int)(Math.random()*1000000000)%1000000000);
-            int amount=(int)((Math.random()*10000000)%10000000);
-            if(amount%2==0){
-                data[3]=Integer.toString(amount);
-            }
-            else {
-                data[3]="-"+Integer.toString(amount);
-            }
-            customerData.add(data);
-        }
-        adapter=new CustomAdapter(Customers.this,customerData,Common.CUSTOMERSLIST);
-        ListView customersList=(ListView)findViewById(R.id.customers_list);
-        customersList.setAdapter(adapter);
+        common.AsynchronousThread(Customers.this,
+                webService,
+                postData,
+                loadingIndicator,
+                dataColumns,
+                postThread,
+                postThreadFailed);
+        asyncTasks.add(common.asyncTask);
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     }
     public void callClick(View view){
         Uri number = Uri.parse("tel:" + view.getTag().toString());
@@ -84,5 +108,12 @@ public class Customers extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+    @Override
+    public void onBackPressed() {
+        for(int i=0;i<asyncTasks.size();i++){
+            asyncTasks.get(i).cancel(true);
+        }
+        super.onBackPressed();
     }
 }

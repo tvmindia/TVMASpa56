@@ -52,7 +52,7 @@ public class CustomAdapter extends BaseAdapter {
 
     private class Holder {
         //Customers List-----------
-        TextView customerName,phone,amount;
+        TextView customerName,contactPersonName,phone,address,amount;
         ImageView callButton;
         //Sales list-------------
         TextView invoiceNo,contactPerson,balAmount,paidAmount,dueDate;
@@ -71,6 +71,8 @@ public class CustomAdapter extends BaseAdapter {
                     holder.phone=(TextView)convertView.findViewById(R.id.phone);
                     holder.amount=(TextView)convertView.findViewById(R.id.amount);
                     holder.callButton=(ImageView)convertView.findViewById(R.id.call_button);
+                    holder.contactPerson=(TextView)convertView.findViewById(R.id.contact_person_name);
+                    holder.address=(TextView)convertView.findViewById(R.id.address);
                     convertView.setTag(holder);
                 } else {
                     holder = (Holder) convertView.getTag();
@@ -78,10 +80,12 @@ public class CustomAdapter extends BaseAdapter {
                 //Label loading--------------------
                 holder.customerName.setText((filteredObjects.get(position)[1].equals("null")?"-":filteredObjects.get(position)[1]));
                 holder.phone.setText((filteredObjects.get(position)[2].equals("null")?"-":filteredObjects.get(position)[2]));
-                holder.callButton.setTag((filteredObjects.get(position)[2].equals("null")?"":filteredObjects.get(position)[2]));
-                if(!filteredObjects.get(position)[3].equals("null")){
-                    holder.amount.setText(adapterContext.getResources().getString(R.string.rupees,filteredObjects.get(position)[3]));
-                    if(Integer.parseInt(filteredObjects.get(position)[3])<0){
+                holder.contactPerson.setText((filteredObjects.get(position)[3].equals("null")?"-":filteredObjects.get(position)[3]));
+                holder.address.setText((filteredObjects.get(position)[4].equals("null")?"-":filteredObjects.get(position)[4]));
+                holder.callButton.setTag((filteredObjects.get(position)[3].equals("null")?"":filteredObjects.get(position)[3]));
+                if(!filteredObjects.get(position)[5].equals("null")){
+                    holder.amount.setText(adapterContext.getResources().getString(R.string.rupees,filteredObjects.get(position)[5]));
+                    if(Double.parseDouble(filteredObjects.get(position)[5])<0){
                         holder.amount.setTextColor(Color.RED);
                     }
                     else {

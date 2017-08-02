@@ -11,4 +11,14 @@
     android:layout_height="match_parent"
     android:id="@+id/customers_list"
     android:divider="@null"/>
+    <com.wang.avi.AVLoadingIndicatorView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:indicatorName="BallScaleMultipleIndicator"
+        android:layout_gravity="center"
+        app:indicatorColor="@android:color/white"
+        android:id="@+id/loading_indicator"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        />
 </RelativeLayout>
