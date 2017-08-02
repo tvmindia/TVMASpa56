@@ -14,4 +14,5 @@
     <string name="start_date">Start Date</string>
     <string name="end_date">End Date</string>
     <string name="or">Or</string>
+    <string name="give_valid">Give valid information</string>
 </resources>

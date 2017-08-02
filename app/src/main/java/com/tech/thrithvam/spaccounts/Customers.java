@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 public class Customers extends AppCompatActivity {
     CustomAdapter adapter;
-    static ArrayList<AsyncTask> asyncTasks=new ArrayList<>();
+    ArrayList<AsyncTask> asyncTasks=new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
