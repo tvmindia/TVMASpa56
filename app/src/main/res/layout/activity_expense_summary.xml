@@ -26,15 +26,52 @@ xmlns:android="http://schemas.android.com/apk/res/android"
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-    <Spinner
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/type_spinner"
-        android:layout_gravity="end"
-        android:layout_marginRight="7dp"
-        android:paddingRight="5dp"
-        android:animateLayoutChanges="true"/>
+            android:orientation="vertical"
+            android:animateLayoutChanges="true"
+            android:padding="5dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="end"
+                android:animateLayoutChanges="true">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/start_date"
+                    android:textSize="14sp"
+                    android:padding="5dp"
+                    android:textColor="@color/colorAccent"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/to"
+                    android:textSize="14sp"
+                    android:padding="5dp"
+                    android:textColor="@color/primary_text"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/end_date"
+                    android:textSize="14sp"
+                    android:padding="5dp"
+                    android:textColor="@color/colorAccent"/>
+                </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:text="@string/or"
+                android:textSize="14sp"
+                android:padding="5dp"
+                android:textColor="@color/primary_text"/>
+            <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/type_spinner"
+                android:layout_gravity="end"
+                android:animateLayoutChanges="true"
+                />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

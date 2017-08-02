@@ -63,7 +63,7 @@ public class HomeScreen extends AppCompatActivity {
         categories.add("Weekly Sale");
         categories.add("Years Sale");
         categories.add("Daily Sale");
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, R.layout.item_spinner, categories);
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, R.layout.item_spinner_small, categories);
         dataAdapter.setDropDownViewResource(R.layout.item_spinner);
         Spinner chartType=(Spinner)findViewById(R.id.chart_type);
         chartType.setAdapter(dataAdapter);
