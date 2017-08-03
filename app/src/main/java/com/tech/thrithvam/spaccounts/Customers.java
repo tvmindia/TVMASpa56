@@ -9,6 +9,7 @@ import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.wang.avi.AVLoadingIndicatorView;
@@ -43,6 +44,14 @@ public class Customers extends AppCompatActivity {
                 adapter=new CustomAdapter(Customers.this,common.dataArrayList,Common.CUSTOMERSLIST);
                 ListView customersList=(ListView)findViewById(R.id.customers_list);
                 customersList.setAdapter(adapter);
+                customersList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        Intent intent=new Intent(Customers.this,CustomerDetails.class);
+                        intent.putExtra(Common.CUSTOMERID,common.dataArrayList.get(position)[0]);
+                        startActivity(intent);
+                    }
+                });
             }
         };
         Runnable postThreadFailed = new Runnable() {

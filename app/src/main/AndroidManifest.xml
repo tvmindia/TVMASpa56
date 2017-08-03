@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.tech.thrithvam.spaccounts">
-    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -11,9 +13,9 @@
         <activity
             android:name=".Login"
             android:configChanges="orientation|screenSize"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.Design.NoActionBar"
-            android:windowSoftInputMode="stateHidden"
-            android:screenOrientation="portrait" >
+            android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -31,11 +33,13 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ExpenseSummary"
-            android:label="Expense Summary"
-            android:configChanges="orientation|screenSize" />
-        <activity android:name=".Customers"
-            android:label="Customers"
-            android:configChanges="orientation|screenSize"/>
+            android:configChanges="orientation|screenSize"
+            android:label="Expense Summary" />
+        <activity
+            android:name=".Customers"
+            android:configChanges="orientation|screenSize"
+            android:label="Customers" />
+        <activity android:name=".CustomerDetails"></activity>
     </application>
 
 </manifest>

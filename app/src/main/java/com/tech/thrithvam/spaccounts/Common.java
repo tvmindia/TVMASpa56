@@ -35,6 +35,7 @@ public class Common {
             PURCHASELIST="purchase",
             CUSTOMERSLIST="customer"
                     ;
+    static final String CUSTOMERID="customerID";
     //To load image from a url------------------------------------------------------
     static void LoadImage(Context context,ImageView imageView, String imageURL, int failImage){
        /* try {
