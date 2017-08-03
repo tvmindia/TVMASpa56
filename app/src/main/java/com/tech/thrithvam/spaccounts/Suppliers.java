@@ -47,7 +47,7 @@ public class Suppliers extends AppCompatActivity {
                 suppliersList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Intent intent=new Intent(Suppliers.this,CustomerDetails.class);
+                        Intent intent=new Intent(Suppliers.this,SupplierDetails.class);
                         intent.putExtra(Common.SUPPLIERID,common.dataArrayList.get(position)[0]);
                         startActivity(intent);
                     }

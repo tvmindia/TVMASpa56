@@ -39,12 +39,15 @@
             android:name=".Customers"
             android:configChanges="orientation|screenSize"
             android:label="Customers" />
-        <activity android:name=".CustomerDetails"
+        <activity
+            android:name=".CustomerDetails"
             android:configChanges="orientation|screenSize"
             android:label="Customers" />
-        <activity android:name=".Suppliers"
+        <activity
+            android:name=".Suppliers"
             android:configChanges="orientation|screenSize"
             android:label="Suppliers" />
+        <activity android:name=".SupplierDetails"></activity>
     </application>
 
 </manifest>
