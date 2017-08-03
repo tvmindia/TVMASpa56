@@ -37,7 +37,7 @@ public class ExpenseSummary extends AppCompatActivity {
     static int DATES=123,DAYS=456;
     TextView startDate,endDate;
     static final String DAYS30="30 Days",DAYS60="60 Days",DAYS180="180 Days",DAYS365="365 Days";
-    Spinner dataType;
+    Spinner daysSelection;
      ArrayList<AsyncTask> asyncTasks=new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,30 +48,36 @@ public class ExpenseSummary extends AppCompatActivity {
         endDate=(TextView)findViewById(R.id.end_date);
 
         //Spinner
-        List<String> categories = new ArrayList<String>();
-        categories.add(DAYS30);categories.add(DAYS60);categories.add(DAYS180);categories.add(DAYS365);
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, R.layout.item_spinner, categories);
+        List<String> daysOptions = new ArrayList<String>();
+        daysOptions.add("Select days…");daysOptions.add(DAYS30);daysOptions.add(DAYS60);daysOptions.add(DAYS180);daysOptions.add(DAYS365);
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, R.layout.item_spinner, daysOptions){
+            @Override
+            public boolean isEnabled(int position) {
+                return position != 0;// disabling zeroth position
+            }
+        };
         dataAdapter.setDropDownViewResource(R.layout.item_spinner);
-        dataType=(Spinner)findViewById(R.id.days_spinner);
-        dataType.setAdapter(dataAdapter);
+        daysSelection =(Spinner)findViewById(R.id.days_spinner);
+        daysSelection.setAdapter(dataAdapter);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            dataType.getBackground().setColorFilter(getColor(R.color.colorPrimary), PorterDuff.Mode.SRC_ATOP);
+            daysSelection.getBackground().setColorFilter(getColor(R.color.colorPrimary), PorterDuff.Mode.SRC_ATOP);
         }
         else {
-            dataType.getBackground().setColorFilter(getResources().getColor(R.color.colorPrimary), PorterDuff.Mode.SRC_ATOP);
+            daysSelection.getBackground().setColorFilter(getResources().getColor(R.color.colorPrimary), PorterDuff.Mode.SRC_ATOP);
         }
-        dataType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        daysSelection.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                getDataFromServer(DAYS);
+                if(position>0){
+                    getDataFromServer(DAYS);
+                }
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
             }
         });
-
+        daysSelection.setSelection(1);
     }
     public void getDates(View view){
         final TextView requiredDate=(TextView)view;
@@ -94,7 +100,7 @@ public class ExpenseSummary extends AppCompatActivity {
                     try {
                         Date sDate=formatted.parse(startDate.getText().toString());
                         Date eDate=formatted.parse(endDate.getText().toString());
-                        if(!sDate.before(eDate)){
+                        if(sDate.after(eDate)){
                             Common.toastMessage(ExpenseSummary.this,R.string.give_valid);
                             requiredDate.setText(oldText);
                             return;
@@ -114,13 +120,16 @@ public class ExpenseSummary extends AppCompatActivity {
         if(datesOrDays==DATES){
             (findViewById(R.id.dates_layout)).setBackgroundResource(R.drawable.boarder_accent);
             (findViewById(R.id.days_layout)).setBackgroundResource(0);
+            daysSelection.setSelection(0);
             postData="{\"chartOfAccountsObj\":{\"startdate\":\""+startDate.getText().toString()+"\",\"enddate\":\""+endDate.getText().toString()+"\"}}}";
         }
         else if(datesOrDays==DAYS){
             (findViewById(R.id.days_layout)).setBackgroundResource(R.drawable.boarder_accent);
             (findViewById(R.id.dates_layout)).setBackgroundResource(0);
+            startDate.setText(getResources().getString(R.string.start_date));
+            endDate.setText(getResources().getString(R.string.end_date));
             int days=0;
-            switch (dataType.getSelectedItem().toString()){
+            switch (daysSelection.getSelectedItem().toString()){
                 case DAYS30:days=30;
                     break;
                 case DAYS60:days=60;
