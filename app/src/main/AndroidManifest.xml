@@ -47,7 +47,9 @@
             android:name=".Suppliers"
             android:configChanges="orientation|screenSize"
             android:label="Suppliers" />
-        <activity android:name=".SupplierDetails"></activity>
+        <activity android:name=".SupplierDetails"
+            android:configChanges="orientation|screenSize"
+            android:label="Suppliers" />
     </application>
 
 </manifest>
