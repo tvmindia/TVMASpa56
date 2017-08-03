@@ -3,8 +3,8 @@ package com.tech.thrithvam.spaccounts;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,39 +16,39 @@ import com.wang.avi.AVLoadingIndicatorView;
 
 import java.util.ArrayList;
 
-public class Customers extends AppCompatActivity {
+public class Suppliers extends AppCompatActivity {
     CustomAdapter adapter;
     ArrayList<AsyncTask> asyncTasks=new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_customers);
-       getCustomers();
+        setContentView(R.layout.activity_suppliers);
+        getSuppliers();
     }
-    void getCustomers(){
+    void getSuppliers(){
         //Threading------------------------------------------------------------------------------------------------------
         final Common common = new Common();
-        String webService = "API/Customer/GetCustomerDetailsMobile";
+        String webService = "API/Supplier/GetAllSuppliersDetailForMobile";
         String postData = "";
         AVLoadingIndicatorView loadingIndicator = (AVLoadingIndicatorView) findViewById(R.id.loading_indicator);
         String[] dataColumns = {"ID",//0
-                                "CompanyName",//1
-                                "ContactPerson",//2
-                                "Mobile",//3
-                                "BillingAddress",//4
-                                "OutStanding"//5
-                                };
+                "CompanyName",//1
+                "ContactPerson",//2
+                "Mobile",//3
+                "BillingAddress",//4
+                "OutStanding"//5
+        };
         Runnable postThread = new Runnable() {
             @Override
             public void run() {
-                adapter=new CustomAdapter(Customers.this,common.dataArrayList,Common.CUSTOMERSLIST);
-                ListView customersList=(ListView)findViewById(R.id.customers_list);
-                customersList.setAdapter(adapter);
-                customersList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                adapter=new CustomAdapter(Suppliers.this,common.dataArrayList,Common.SUPPLIERSLIST);
+                ListView suppliersList=(ListView)findViewById(R.id.suppliers_list);
+                suppliersList.setAdapter(adapter);
+                suppliersList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Intent intent=new Intent(Customers.this,CustomerDetails.class);
-                        intent.putExtra(Common.CUSTOMERID,common.dataArrayList.get(position)[0]);
+                        Intent intent=new Intent(Suppliers.this,CustomerDetails.class);
+                        intent.putExtra(Common.SUPPLIERID,common.dataArrayList.get(position)[0]);
                         startActivity(intent);
                     }
                 });
@@ -57,11 +57,11 @@ public class Customers extends AppCompatActivity {
         Runnable postThreadFailed = new Runnable() {
             @Override
             public void run() {
-                Common.toastMessage(Customers.this, R.string.failed_server);
+                Common.toastMessage(Suppliers.this, R.string.failed_server);
             }
         };
 
-        common.AsynchronousThread(Customers.this,
+        common.AsynchronousThread(Suppliers.this,
                 webService,
                 postData,
                 loadingIndicator,

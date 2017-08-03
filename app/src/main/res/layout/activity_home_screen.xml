@@ -197,6 +197,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:orientation="horizontal"
+                android:paddingLeft="7dp"
+                android:paddingRight="7dp"
+                android:paddingBottom="7dp"
                 android:layout_weight="1"
                 android:gravity="center">
                 <RelativeLayout
@@ -235,7 +238,8 @@
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1">
+                    android:layout_weight="1"
+                    android:onClick="SuppliersClick">
                     <ImageView
                         android:layout_width="30dp"
                         android:layout_height="30dp"

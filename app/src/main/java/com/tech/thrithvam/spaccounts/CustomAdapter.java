@@ -54,6 +54,8 @@ public class CustomAdapter extends BaseAdapter {
         //Customers List-----------
         TextView customerName,contactPersonName,phone,address,amount;
         ImageView callButton;
+        //Suppliers List------------
+        TextView supplierName;
         //Sales list-------------
         TextView invoiceNo,contactPerson,balAmount,paidAmount,dueDate;
     }
@@ -138,6 +140,41 @@ public class CustomAdapter extends BaseAdapter {
                 holder.balAmount.setText((filteredObjects.get(position)[5].equals("null")?"-":adapterContext.getResources().getString(R.string.rupees,filteredObjects.get(position)[5])));
                 holder.paidAmount.setText((filteredObjects.get(position)[6].equals("null")?"-":adapterContext.getResources().getString(R.string.paid_amount,filteredObjects.get(position)[6])));
                 holder.dueDate.setText((filteredObjects.get(position)[4].equals("null")?"-":adapterContext.getResources().getString(R.string.due_date,filteredObjects.get(position)[4])));
+                break;
+            //--------------------------for customer list items------------------
+            case Common.SUPPLIERSLIST:
+                if (convertView == null) {
+                    holder = new Holder();
+                    convertView = inflater.inflate(R.layout.item_supplier, null);
+                    holder.supplierName = (TextView) convertView.findViewById(R.id.supplier_name);
+                    holder.phone=(TextView)convertView.findViewById(R.id.phone);
+                    holder.amount=(TextView)convertView.findViewById(R.id.amount);
+                    holder.callButton=(ImageView)convertView.findViewById(R.id.call_button);
+                    holder.contactPerson=(TextView)convertView.findViewById(R.id.contact_person_name);
+                    holder.address=(TextView)convertView.findViewById(R.id.address);
+                    convertView.setTag(holder);
+                } else {
+                    holder = (Holder) convertView.getTag();
+                }
+                //Label loading--------------------
+                holder.supplierName.setText((filteredObjects.get(position)[1].equals("null")?"-":filteredObjects.get(position)[1]));
+                holder.phone.setText((filteredObjects.get(position)[2].equals("null")?"-":filteredObjects.get(position)[2]));
+                holder.contactPerson.setText((filteredObjects.get(position)[3].equals("null")?"-":filteredObjects.get(position)[3]));
+                holder.address.setText((filteredObjects.get(position)[4].equals("null")?"-":filteredObjects.get(position)[4]));
+                holder.callButton.setTag((filteredObjects.get(position)[3].equals("null")?"":filteredObjects.get(position)[3]));
+                if(!filteredObjects.get(position)[5].equals("null")){
+                    holder.amount.setText(adapterContext.getResources().getString(R.string.rupees,filteredObjects.get(position)[5]));
+                  /*  if(Double.parseDouble(filteredObjects.get(position)[5])<0){
+                        holder.amount.setTextColor(Color.RED);
+                    }
+                    else {
+                        holder.amount.setTextColor(Color.DKGRAY);
+                    }*/
+                }
+                else {
+                    holder.amount.setText("-");
+                    holder.amount.setTextColor(Color.GRAY);
+                }
                 break;
             default:
                 break;

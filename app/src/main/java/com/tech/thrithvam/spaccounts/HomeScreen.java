@@ -93,5 +93,9 @@ public class HomeScreen extends AppCompatActivity {
         Intent intent=new Intent(this,Customers.class);
         startActivity(intent);
     }
+    public void SuppliersClick(View view){
+        Intent intent=new Intent(this,Suppliers.class);
+        startActivity(intent);
+    }
 
 }

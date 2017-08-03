@@ -35,7 +35,6 @@ public class CustomerDetails extends AppCompatActivity {
             @Override
             public void run() {
                 try {
-                    (findViewById(R.id.screen_data)).setVisibility(View.VISIBLE);
                     final JSONObject customerObject=new JSONObject(common.json);
                     ((TextView)findViewById(R.id.company_name)).setText(customerObject.getString("CompanyName").equals("null")?"-":customerObject.getString("CompanyName"));
                     ((TextView)findViewById(R.id.contact_title)).setText(customerObject.getString("ContactTitle").equals("null")?"":customerObject.getString("ContactTitle"));
@@ -104,6 +103,8 @@ public class CustomerDetails extends AppCompatActivity {
                     ((TextView)findViewById(R.id.payment_term)).setText(customerObject.getJSONObject("PaymentTermsObj").getString("NoOfDays").equals("null")?"-":getResources().getString(R.string._days,customerObject.getJSONObject("PaymentTermsObj").getString("NoOfDays")));
                     ((TextView)findViewById(R.id.notes)).setText(customerObject.getString("GeneralNotes").equals("null")?"-":customerObject.getString("GeneralNotes"));
                     ((TextView)findViewById(R.id.outstanding)).setText(customerObject.getString("OutStanding").equals("null")?"-":getResources().getString(R.string.rupees,customerObject.getString("OutStanding")));
+
+                    (findViewById(R.id.screen_data)).setVisibility(View.VISIBLE);
                 } catch (JSONException e) {
                     Common.toastMessage(CustomerDetails.this, R.string.failed_server);
                     e.printStackTrace();

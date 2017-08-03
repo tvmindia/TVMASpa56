@@ -20,10 +20,10 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Customer Name"
+            android:text="Supplier Name"
             android:textColor="@color/primary_text"
             android:textSize="14sp"
-            android:id="@+id/customer_name"
+            android:id="@+id/supplier_name"
             android:layout_toLeftOf="@+id/amount"
             android:layout_toStartOf="@+id/amount"
             android:layout_toRightOf="@+id/call_button"
@@ -31,7 +31,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/customer_name"
+            android:layout_below="@id/supplier_name"
             android:text="ContactPersonName"
             android:textColor="@color/primary_text"
             android:textSize="12sp"
