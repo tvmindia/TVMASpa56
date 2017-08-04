@@ -80,7 +80,7 @@ public class HomeScreen extends AppCompatActivity {
         switch (chartType.getSelectedItem().toString()){
             case YEAR:duration="Year";
                 break;
-            case MONTH:duration="Month";
+            case MONTH:duration="1Month";
                 break;
             case SIXMONTH:duration="6month";
                 break;
@@ -96,11 +96,14 @@ public class HomeScreen extends AppCompatActivity {
         Runnable postThread = new Runnable() {
             @Override
             public void run() {
+                if(common.dataArrayList.size()==0){
+                    return;
+                }
                 chart.setVisibility(View.VISIBLE);
                 List<Entry> entries = new ArrayList<Entry>();
                 final HashMap<Integer, String> numMap = new HashMap<>();
                 for(int i=0;i<common.dataArrayList.size();i++){
-                    entries.add(new Entry(i,Integer.parseInt(common.dataArrayList.get(i)[1])));
+                    entries.add(new Entry(i,Float.parseFloat(common.dataArrayList.get(i)[1])));
                     numMap.put(i,common.dataArrayList.get(i)[0]);
                 }
                 XAxis xAxis = chart.getXAxis();
