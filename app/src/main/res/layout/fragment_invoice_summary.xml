@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.tech.thrithvam.spaccounts.InvoiceSummary$PlaceholderFragment">
+    tools:context="com.tech.thrithvam.spaccounts.InvoiceSummary$PlaceholderFragment"
+    android:paddingTop="7dp">
 
     <LinearLayout
         android:layout_width="match_parent"
