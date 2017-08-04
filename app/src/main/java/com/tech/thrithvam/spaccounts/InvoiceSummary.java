@@ -144,6 +144,7 @@ public class InvoiceSummary extends AppCompatActivity {
                                 JSONArray invoices = jsonObject.getJSONArray("OutstandingList");
                                 if(invoices.length()==0){
                                     Common.toastMessage(getContext(),getContext().getResources().getString(R.string.no_items)+" in outstanding list");
+                                    (rootView.findViewById(R.id.no_items)).setVisibility(View.VISIBLE);
                                     return;
                                 }
                                 ArrayList<String[]> invoiceListData = new ArrayList<>();
@@ -206,6 +207,7 @@ public class InvoiceSummary extends AppCompatActivity {
                                 JSONArray invoices = jsonObject.getJSONArray("OutStandingList");
                                 if(invoices.length()==0){
                                     Common.toastMessage(getContext(),getContext().getResources().getString(R.string.no_items)+" in outstanding list");
+                                    (rootView.findViewById(R.id.no_items)).setVisibility(View.VISIBLE);
                                     return;
                                 }
                                 ArrayList<String[]> invoiceListData = new ArrayList<>();
@@ -273,6 +275,7 @@ public class InvoiceSummary extends AppCompatActivity {
                                 JSONArray invoices = jsonObject.getJSONArray("OpeningList");
                                 if(invoices.length()==0){
                                     Common.toastMessage(getContext(),getContext().getResources().getString(R.string.no_items)+" in open list");
+                                    (rootView.findViewById(R.id.no_items)).setVisibility(View.VISIBLE);
                                     return;
                                 }
                                 ArrayList<String[]> invoiceListData = new ArrayList<>();
@@ -336,6 +339,7 @@ public class InvoiceSummary extends AppCompatActivity {
                                 JSONArray invoices = jsonObject.getJSONArray("OpeningList");
                                 if(invoices.length()==0){
                                     Common.toastMessage(getContext(),getContext().getResources().getString(R.string.no_items)+" in open list");
+                                    (rootView.findViewById(R.id.no_items)).setVisibility(View.VISIBLE);
                                     return;
                                 }
                                 ArrayList<String[]> invoiceListData = new ArrayList<>();

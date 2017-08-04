@@ -10,7 +10,7 @@
         android:layout_marginLeft="3dp"
         android:layout_marginRight="3dp"
         app:cardCornerRadius="4dp"
-        app:cardElevation="0dp"
+        app:cardElevation="1dp"
         app:cardMaxElevation="0dp"
         app:cardUseCompatPadding="true"
         android:animateLayoutChanges="true">
