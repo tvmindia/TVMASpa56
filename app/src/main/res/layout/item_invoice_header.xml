@@ -16,14 +16,16 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="10dp">
+
             <TextView
+                android:id="@+id/amount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Amount"
-                android:textSize="16sp"
                 android:gravity="end"
-                android:textColor="@color/primary_text"
-                android:id="@+id/amount"/>
+                android:text="Amount"
+                android:textColor="@color/brown"
+                android:textSize="16sp"
+                android:textStyle="bold" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
