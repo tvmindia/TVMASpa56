@@ -7,7 +7,7 @@
     <string name="failed_try_again">Failed attempt. Please try again</string>
     <string name="failed_server">Failed to get data from server.</string>
     <string name="welcome">Welcome %1$s</string>
-    <string name="balance_amount">Balance Amount: </string>
+    <string name="balance_due">Balance Due: </string>
     <string name="paid_amount">Paid Amount: ₹ %1$s</string>
     <string name="due_date">Due Date: %1$s</string>
     <string name="no_items">No items</string>
