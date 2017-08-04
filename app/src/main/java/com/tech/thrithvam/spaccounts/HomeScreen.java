@@ -117,7 +117,7 @@ public class HomeScreen extends AppCompatActivity {
 
                 LineDataSet dataSet = new LineDataSet(entries, "Sales");
                 dataSet.setColor(Color.BLUE);
-                dataSet.setValueTextColor(Color.BLUE);
+                dataSet.setValueTextColor(Color.parseColor("#290000"));
                 dataSet.setValueTextSize(11);
                 LineData lineData = new LineData(dataSet);
                 chart.setData(lineData);
