@@ -5,25 +5,37 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.AxisBase;
+import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+import com.wang.avi.AVLoadingIndicatorView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class HomeScreen extends AppCompatActivity {
 
+    ArrayList<AsyncTask> asyncTasks=new ArrayList<>();
+    static final String YEAR="Last year",MONTH="Last month",SIXMONTH="Last six months";
+    Spinner chartType;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,39 +45,13 @@ public class HomeScreen extends AppCompatActivity {
         String userName=sharedpreferences.getString("UserName","");
         ((TextView)findViewById(R.id.welcome)).setText(getResources().getString(R.string.welcome,userName));
 
-        LineChart chart = (LineChart) findViewById(R.id.chart);
-
-
-
-        List<Entry> entries = new ArrayList<Entry>();
-
-
-        // turn your data into Entry objects
-        entries.add(new Entry(5,4));
-        entries.add(new Entry(6,2));
-        entries.add(new Entry(7,7));
-        entries.add(new Entry(8,3));
-        entries.add(new Entry(9,6));
-        entries.add(new Entry(10,5));
-
-        LineDataSet dataSet = new LineDataSet(entries, "Label");
-        dataSet.setColor(Color.BLUE);
-        LineData lineData = new LineData(dataSet);
-        chart.setData(lineData);
-        chart.invalidate(); // refresh
-
-        chart.animateX(3000, Easing.EasingOption.Linear);
-
 
         //chart Spinner
-        List<String> categories = new ArrayList<String>();
-        categories.add("Monthly Sale");
-        categories.add("Weekly Sale");
-        categories.add("Years Sale");
-        categories.add("Daily Sale");
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, R.layout.item_spinner_small, categories);
+        List<String> chartTypeOptions = new ArrayList<String>();
+        chartTypeOptions.add(MONTH);chartTypeOptions.add(SIXMONTH);chartTypeOptions.add(YEAR);
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, R.layout.item_spinner_small, chartTypeOptions);
         dataAdapter.setDropDownViewResource(R.layout.item_spinner);
-        Spinner chartType=(Spinner)findViewById(R.id.chart_type);
+        chartType=(Spinner)findViewById(R.id.chart_type);
         chartType.setAdapter(dataAdapter);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             chartType.getBackground().setColorFilter(getColor(R.color.colorPrimary), PorterDuff.Mode.SRC_ATOP);
@@ -73,8 +59,95 @@ public class HomeScreen extends AppCompatActivity {
         else {
             chartType.getBackground().setColorFilter(getResources().getColor(R.color.colorPrimary), PorterDuff.Mode.SRC_ATOP);
         }
+        chartType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                getChartData();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
+    public void getChartData(){
+        final LineChart chart = (LineChart) findViewById(R.id.chart);
+        chart.setVisibility(View.GONE);
+
+        String duration="";
+        switch (chartType.getSelectedItem().toString()){
+            case YEAR:duration="Year";
+                break;
+            case MONTH:duration="Month";
+                break;
+            case SIXMONTH:duration="6month";
+                break;
+        }
+        //Threading------------------------------------------------------------------------------------------------------
+        final Common common = new Common();
+        String webService = "API/HomeScreenChart/SalesSummaryChartForMobile";
+        String postData = "{\"duration\":\""+duration+"\"}";
+        AVLoadingIndicatorView loadingIndicator = (AVLoadingIndicatorView) findViewById(R.id.loading_indicator);
+        String[] dataColumns = {"Period",//0
+                "Amount",//1
+        };
+        Runnable postThread = new Runnable() {
+            @Override
+            public void run() {
+                chart.setVisibility(View.VISIBLE);
+                List<Entry> entries = new ArrayList<Entry>();
+                final HashMap<Integer, String> numMap = new HashMap<>();
+                for(int i=0;i<common.dataArrayList.size();i++){
+                    entries.add(new Entry(i,Integer.parseInt(common.dataArrayList.get(i)[1])));
+                    numMap.put(i,common.dataArrayList.get(i)[0]);
+                }
+                XAxis xAxis = chart.getXAxis();
+                xAxis.setValueFormatter(new IAxisValueFormatter() {
+                    @Override
+                    public String getFormattedValue(float value, AxisBase axis) {
+                        return numMap.get((int)value);
+                    }
+                });
+                xAxis.setGranularity(1f);
+                xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+                YAxis rightAxis = chart.getAxisRight();
+                rightAxis.setEnabled(false);
+
+                LineDataSet dataSet = new LineDataSet(entries, "Sales");
+                dataSet.setColor(Color.BLUE);
+                dataSet.setValueTextColor(Color.BLUE);
+                dataSet.setValueTextSize(11);
+                LineData lineData = new LineData(dataSet);
+                chart.setData(lineData);
+                // hide legend
+                Legend legend = chart.getLegend();
+                legend.setEnabled(false);
+                chart.getDescription().setEnabled(false);
+
+                chart.invalidate(); // refresh
+                chart.animateX(3000, Easing.EasingOption.Linear);
+            }
+        };
+        Runnable postThreadFailed = new Runnable() {
+            @Override
+            public void run() {
+                Common.toastMessage(HomeScreen.this, R.string.failed_server);
+                (findViewById(R.id.chart_card)).setVisibility(View.GONE);
+            }
+        };
+
+        common.AsynchronousThread(HomeScreen.this,
+                webService,
+                postData,
+                loadingIndicator,
+                dataColumns,
+                postThread,
+                postThreadFailed);
+        asyncTasks.add(common.asyncTask);
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    }
     public void InvoiceSalesClick(View view){
         Intent intent=new Intent(this,InvoiceSummary.class);
         intent.putExtra("salesORpurchase",Common.SALES);
@@ -97,5 +170,11 @@ public class HomeScreen extends AppCompatActivity {
         Intent intent=new Intent(this,Suppliers.class);
         startActivity(intent);
     }
-
+    @Override
+    public void onBackPressed() {
+        for(int i=0;i<asyncTasks.size();i++){
+            asyncTasks.get(i).cancel(true);
+        }
+        super.onBackPressed();
+    }
 }
