@@ -30,14 +30,20 @@ public class Common {
 
     //Constants-----------------------
     static String preferenceName="SPA";
-    static int SALES=123,PURCHASE=456;
+    static final int SALES=123,PURCHASE=456,CUSTOMER=798,SUPPLIER=987;
+    //Custom adapter constants
     static final String SALESLIST="sales",
             PURCHASELIST="purchases",
             CUSTOMERSLIST="customers",
             SUPPLIERSLIST="suppliers"
                     ;
+    //Intent constants
     static final String CUSTOMERID="customerID",
-                        SUPPLIERID="supplierID";
+                        SUPPLIERID="supplierID",
+                        NAME="name",
+                        PHONENUMBER="phoneNumber",
+                        CUSTOMER_OR_SUPPLIER="customerORsupplier";
+
     //To load image from a url------------------------------------------------------
     static void LoadImage(Context context,ImageView imageView, String imageURL, int failImage){
        /* try {

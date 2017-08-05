@@ -47,8 +47,11 @@ public class Suppliers extends AppCompatActivity {
                 suppliersList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Intent intent=new Intent(Suppliers.this,SupplierDetails.class);
+                        Intent intent=new Intent(Suppliers.this,Invoices.class);
+                        intent.putExtra(Common.CUSTOMER_OR_SUPPLIER,Common.SUPPLIER);
                         intent.putExtra(Common.SUPPLIERID,common.dataArrayList.get(position)[0]);
+                        intent.putExtra(Common.NAME,common.dataArrayList.get(position)[1]);
+                        intent.putExtra(Common.PHONENUMBER,common.dataArrayList.get(position)[3].equals("null")?"":common.dataArrayList.get(position)[3]);
                         startActivity(intent);
                     }
                 });
@@ -76,6 +79,11 @@ public class Suppliers extends AppCompatActivity {
         Uri number = Uri.parse("tel:" + view.getTag().toString());
         Intent callIntent = new Intent(Intent.ACTION_DIAL, number);
         startActivity(callIntent);
+    }
+    public void supplierDetails(View view){
+        Intent intent=new Intent(Suppliers.this,SupplierDetails.class);
+        intent.putExtra(Common.SUPPLIERID,view.getTag().toString());
+        startActivity(intent);
     }
     SearchView searchView;
     @Override

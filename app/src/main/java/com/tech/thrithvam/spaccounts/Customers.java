@@ -47,8 +47,11 @@ public class Customers extends AppCompatActivity {
                 customersList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Intent intent=new Intent(Customers.this,CustomerDetails.class);
+                        Intent intent=new Intent(Customers.this,Invoices.class);
+                        intent.putExtra(Common.CUSTOMER_OR_SUPPLIER,Common.CUSTOMER);
                         intent.putExtra(Common.CUSTOMERID,common.dataArrayList.get(position)[0]);
+                        intent.putExtra(Common.NAME,common.dataArrayList.get(position)[1]);
+                        intent.putExtra(Common.PHONENUMBER,common.dataArrayList.get(position)[3].equals("null")?"":common.dataArrayList.get(position)[3]);
                         startActivity(intent);
                     }
                 });
@@ -76,6 +79,11 @@ public class Customers extends AppCompatActivity {
         Uri number = Uri.parse("tel:" + view.getTag().toString());
         Intent callIntent = new Intent(Intent.ACTION_DIAL, number);
         startActivity(callIntent);
+    }
+    public void customerDetails(View view){
+        Intent intent=new Intent(Customers.this,CustomerDetails.class);
+        intent.putExtra(Common.CUSTOMERID,view.getTag().toString());
+        startActivity(intent);
     }
     SearchView searchView;
     @Override

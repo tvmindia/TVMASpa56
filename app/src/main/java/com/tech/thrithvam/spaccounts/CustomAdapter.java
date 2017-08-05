@@ -52,7 +52,7 @@ public class CustomAdapter extends BaseAdapter {
 
     private class Holder {
         //Customers List-----------
-        TextView customerName,contactPersonName,phone,address,amount;
+        TextView customerName,phone,address,amount;
         ImageView callButton;
         //Suppliers List------------
         TextView supplierName;
@@ -81,6 +81,7 @@ public class CustomAdapter extends BaseAdapter {
                 }
                 //Label loading--------------------
                 holder.customerName.setText((filteredObjects.get(position)[1].equals("null")?"-":filteredObjects.get(position)[1]));
+                holder.customerName.setTag(filteredObjects.get(position)[0]);
                 holder.phone.setText((filteredObjects.get(position)[2].equals("null")?"-":filteredObjects.get(position)[2]));
                 holder.contactPerson.setText((filteredObjects.get(position)[3].equals("null")?"-":filteredObjects.get(position)[3]));
                 holder.address.setText((filteredObjects.get(position)[4].equals("null")?"-":filteredObjects.get(position)[4]));
@@ -158,6 +159,7 @@ public class CustomAdapter extends BaseAdapter {
                 }
                 //Label loading--------------------
                 holder.supplierName.setText((filteredObjects.get(position)[1].equals("null")?"-":filteredObjects.get(position)[1]));
+                holder.supplierName.setTag(filteredObjects.get(position)[0]);
                 holder.phone.setText((filteredObjects.get(position)[2].equals("null")?"-":filteredObjects.get(position)[2]));
                 holder.contactPerson.setText((filteredObjects.get(position)[3].equals("null")?"-":filteredObjects.get(position)[3]));
                 holder.address.setText((filteredObjects.get(position)[4].equals("null")?"-":filteredObjects.get(position)[4]));
