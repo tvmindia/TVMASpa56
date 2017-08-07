@@ -33,4 +33,6 @@
     <string name="other_expense_summary">Other Expense Summary</string>
     <string name="customers">Customers</string>
     <string name="suppliers">Suppliers</string>
+    <string name="days_passed_due">%1$s days passed due</string>
+    <string name="due_days">Due days: %1$s</string>
 </resources>

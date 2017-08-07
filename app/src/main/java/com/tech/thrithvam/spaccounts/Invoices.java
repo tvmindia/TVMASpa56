@@ -59,7 +59,7 @@ public class Invoices extends AppCompatActivity {
                     ArrayList<String[]> invoiceListData = new ArrayList<>();
                     for (int i = 0; i < invoices.length(); i++) {
                         JSONObject jsonObject1 = invoices.getJSONObject(i);
-                        String[] data = new String[7];
+                        String[] data = new String[8];
                         data[0] = jsonObject1.getString("ID");
                         data[1] = jsonObject1.getString("InvoiceNo");
                         switch (getIntent().getExtras().getInt(Common.CUSTOMER_OR_SUPPLIER)){
@@ -75,6 +75,7 @@ public class Invoices extends AppCompatActivity {
                         data[4] = jsonObject1.getString("PaymentDueDateFormatted");
                         data[5] = jsonObject1.getString("BalanceDue");
                         data[6] = jsonObject1.getString("PaidAmount");
+                        data[7] = jsonObject1.getString("DueDays");
                         invoiceListData.add(data);
                     }
                     CustomAdapter adapter = new CustomAdapter(Invoices.this, invoiceListData, (getIntent().getExtras().getInt(Common.CUSTOMER_OR_SUPPLIER)==Common.CUSTOMER?Common.SALESLIST:Common.PURCHASELIST));
