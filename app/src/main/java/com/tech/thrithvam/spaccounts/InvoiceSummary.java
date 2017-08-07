@@ -204,7 +204,7 @@ public class InvoiceSummary extends AppCompatActivity {
                             JSONObject jsonObject;
                             try {
                                 jsonObject=new JSONObject(common.json);
-                                JSONArray invoices = jsonObject.getJSONArray("OutStandingList");
+                                JSONArray invoices = jsonObject.getJSONArray("OutstandingList");
                                 if(invoices.length()==0){
                                     Common.toastMessage(getContext(),getContext().getResources().getString(R.string.no_items)+" in outstanding list");
                                     (rootView.findViewById(R.id.no_items)).setVisibility(View.VISIBLE);
