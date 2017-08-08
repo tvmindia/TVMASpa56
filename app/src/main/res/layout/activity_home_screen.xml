@@ -118,7 +118,7 @@
                         android:layout_height="30dp"
                         android:src="@drawable/sale_invoice"
                         android:scaleType="fitCenter"
-                        android:tint="@color/colorPrimary"
+                        android:tint="@color/colorAccent"
                         android:layout_centerHorizontal="true"
                         android:id="@+id/sales_icon"
                         android:layout_margin="5dp"/>
@@ -151,7 +151,7 @@
                         android:layout_height="30dp"
                         android:src="@drawable/invoice"
                         android:scaleType="fitCenter"
-                        android:tint="@color/colorPrimary"
+                                                 android:tint="@color/colorAccent"
                         android:layout_centerHorizontal="true"
                         android:id="@+id/purchase_icon"
                         android:layout_margin="5dp"/>
@@ -184,7 +184,7 @@
                         android:layout_height="30dp"
                         android:src="@drawable/expense"
                         android:scaleType="fitCenter"
-                        android:tint="@color/colorPrimary"
+                                                 android:tint="@color/colorAccent"
                         android:layout_centerHorizontal="true"
                         android:id="@+id/expense_icon"
                         android:layout_margin="5dp"/>
@@ -231,7 +231,7 @@
                         android:layout_height="30dp"
                         android:src="@drawable/customers"
                         android:scaleType="fitCenter"
-                        android:tint="@color/colorPrimary"
+                                                 android:tint="@color/colorAccent"
                         android:layout_centerHorizontal="true"
                         android:id="@+id/customers_icon"
                         android:layout_margin="5dp"/>
@@ -264,7 +264,7 @@
                         android:layout_height="30dp"
                         android:src="@drawable/suppliers"
                         android:scaleType="fitCenter"
-                        android:tint="@color/colorPrimary"
+                                                 android:tint="@color/colorAccent"
                         android:layout_centerHorizontal="true"
                         android:id="@+id/supplier_icon"
                         android:layout_margin="5dp"/>
@@ -296,7 +296,7 @@
                         android:layout_height="30dp"
                         android:src="@drawable/suppliers"
                         android:scaleType="fitCenter"
-                        android:tint="@color/colorPrimary"
+                                                 android:tint="@color/colorAccent"
                         android:layout_centerHorizontal="true"
                         android:id="@+id/extra_icon"
                         android:layout_margin="5dp"/>

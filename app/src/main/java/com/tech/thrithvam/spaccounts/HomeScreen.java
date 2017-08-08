@@ -54,10 +54,10 @@ public class HomeScreen extends AppCompatActivity {
         chartType=(Spinner)findViewById(R.id.chart_type);
         chartType.setAdapter(dataAdapter);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            chartType.getBackground().setColorFilter(getColor(R.color.colorPrimary), PorterDuff.Mode.SRC_ATOP);
+            chartType.getBackground().setColorFilter(getColor(R.color.colorAccent), PorterDuff.Mode.SRC_ATOP);
         }
         else {
-            chartType.getBackground().setColorFilter(getResources().getColor(R.color.colorPrimary), PorterDuff.Mode.SRC_ATOP);
+            chartType.getBackground().setColorFilter(getResources().getColor(R.color.colorAccent), PorterDuff.Mode.SRC_ATOP);
         }
         chartType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
