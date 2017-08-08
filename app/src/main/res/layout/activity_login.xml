@@ -22,7 +22,6 @@
     android:layout_marginTop="50dp"
     android:src="@drawable/logo"
     android:scaleType="fitCenter"
-    android:onClick="backdoor"
     />
 
     <android.support.design.widget.TextInputLayout

@@ -11,7 +11,6 @@ import android.widget.EditText;
 
 import com.dd.CircularProgressButton;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -161,13 +160,5 @@ public class Login extends AppCompatActivity {
                 }*/
             }
         });
-    }
-
-    public void backdoor(View view){    /***To be deleted */
-        final EditText usernameInput=(EditText)findViewById(R.id.input_username);
-        final EditText passwordInput=(EditText)findViewById(R.id.input_password);
-        usernameInput.setText("albert");
-        passwordInput.setText("albert@123");
-        loginButton.performClick();
     }
 }
