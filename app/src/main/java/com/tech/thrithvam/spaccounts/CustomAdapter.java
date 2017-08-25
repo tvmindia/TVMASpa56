@@ -88,12 +88,12 @@ public class CustomAdapter extends BaseAdapter {
                 holder.callButton.setTag((filteredObjects.get(position)[3].equals("null")?"":filteredObjects.get(position)[3]));
                 if(!filteredObjects.get(position)[5].equals("null")){
                     holder.amount.setText(adapterContext.getResources().getString(R.string.rupees,filteredObjects.get(position)[5]));
-                    if(Double.parseDouble(filteredObjects.get(position)[5])<0){
+                    /*if(Double.parseDouble(filteredObjects.get(position)[5])<0){
                         holder.amount.setTextColor(Color.RED);
                     }
                     else {
                         holder.amount.setTextColor(Color.DKGRAY);
-                    }
+                    }*/
                 }
                 else {
                     holder.amount.setText("-");
