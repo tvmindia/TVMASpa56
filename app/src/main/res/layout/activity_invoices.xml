@@ -38,8 +38,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/invoice_list"
-        android:divider="@null"
-        android:paddingTop="7dp"
+        android:divider="@color/primary_text"
+        android:dividerHeight="0.5dp"
+        android:padding="7dp"
         android:scrollbars="none"/>
     </android.support.v7.widget.CardView>
 </RelativeLayout>

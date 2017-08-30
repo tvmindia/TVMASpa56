@@ -127,6 +127,13 @@ public class CustomAdapter extends BaseAdapter {
                         holder.dueDays.setVisibility(View.VISIBLE);
                         if(dueDays<0){
                             holder.dueDays.setText(adapterContext.getResources().getString(R.string.days_passed_due,Integer.toString(dueDays*-1)));
+
+                            if(Double.parseDouble(filteredObjects.get(position)[5])>0){
+                                holder.balAmount.setTextColor(Color.RED);
+                            }
+                            else {
+                                holder.balAmount.setTextColor(Color.DKGRAY);
+                            }
                         }
                         else {
                             holder.dueDays.setText(adapterContext.getResources().getString(R.string.due_days,Integer.toString(dueDays)));
@@ -161,6 +168,13 @@ public class CustomAdapter extends BaseAdapter {
                         holder.dueDays.setVisibility(View.VISIBLE);
                         if(dueDays<0){
                             holder.dueDays.setText(adapterContext.getResources().getString(R.string.days_passed_due,Integer.toString(dueDays*-1)));
+
+                            if(Double.parseDouble(filteredObjects.get(position)[5])<0){
+                                holder.balAmount.setTextColor(Color.RED);
+                            }
+                            else {
+                                holder.balAmount.setTextColor(Color.DKGRAY);
+                            }
                         }
                         else {
                             holder.dueDays.setText(adapterContext.getResources().getString(R.string.due_days,Integer.toString(dueDays)));
