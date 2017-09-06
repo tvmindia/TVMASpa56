@@ -24,6 +24,7 @@ public class Suppliers extends AppCompatActivity {
     ArrayList<AsyncTask> asyncTasks=new ArrayList<>();
     ListView suppliersList;
     Spinner listOptions;
+    final static String ALL="All",OUTSTANDING="Outstanding";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,7 +33,7 @@ public class Suppliers extends AppCompatActivity {
         getSuppliers();
         //Spinner
         List<String> options = new ArrayList<String>();
-        options.add("All");options.add("Outstanding");
+        options.add(ALL);options.add(OUTSTANDING);
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, R.layout.item_spinner_white, options);
         dataAdapter.setDropDownViewResource(R.layout.item_spinner );
         listOptions =(Spinner)findViewById(R.id.spinner);
@@ -41,11 +42,11 @@ public class Suppliers extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 switch (listOptions.getSelectedItem().toString()){
-                    case "All":
+                    case ALL:
                         searchView.setQuery("",true);
                         suppliersList.setAdapter(adapter);
                         break;
-                    case "Outstanding":
+                    case OUTSTANDING:
                         searchView.setQuery("",true);
                         suppliersList.setAdapter(outstandingAdapter);
                         break;
@@ -76,26 +77,34 @@ public class Suppliers extends AppCompatActivity {
             public void run() {
                 adapter=new CustomAdapter(Suppliers.this,common.dataArrayList,Common.SUPPLIERSLIST);
                 suppliersList.setAdapter(adapter);
-                suppliersList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Intent intent=new Intent(Suppliers.this,Invoices.class);
-                        intent.putExtra(Common.CUSTOMER_OR_SUPPLIER,Common.SUPPLIER);
-                        intent.putExtra(Common.SUPPLIERID,common.dataArrayList.get(position)[0]);
-                        intent.putExtra(Common.NAME,common.dataArrayList.get(position)[1]);
-                        intent.putExtra(Common.PHONENUMBER,common.dataArrayList.get(position)[3].equals("null")?"":common.dataArrayList.get(position)[3]);
-                        startActivity(intent);
-                    }
-                });
                 //Outstanding only
-                ArrayList<String[]> outstandingArraylist=new ArrayList<>();
+                final ArrayList<String[]> outstandingArraylist=new ArrayList<>();
                 for(int i=0;i<common.dataArrayList.size();i++){
                     if(Double.parseDouble(common.dataArrayList.get(i)[5])>0){
                         outstandingArraylist.add(common.dataArrayList.get(i));
                     }
                 }
-                outstandingAdapter=new CustomAdapter(Suppliers.this,outstandingArraylist,Common.CUSTOMERSLIST);
+                outstandingAdapter=new CustomAdapter(Suppliers.this,outstandingArraylist,Common.SUPPLIERSLIST);
                 listOptions.setVisibility(View.VISIBLE);
+
+                suppliersList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        Intent intent=new Intent(Suppliers.this,Invoices.class);
+                        intent.putExtra(Common.CUSTOMER_OR_SUPPLIER, Common.SUPPLIER);
+                        if(listOptions.getSelectedItem().toString().equals(ALL)) {
+                            intent.putExtra(Common.SUPPLIERID, common.dataArrayList.get(position)[0]);
+                            intent.putExtra(Common.NAME, common.dataArrayList.get(position)[1]);
+                            intent.putExtra(Common.PHONENUMBER, common.dataArrayList.get(position)[3].equals("null") ? "" : common.dataArrayList.get(position)[3]);
+                        }
+                        else {
+                            intent.putExtra(Common.SUPPLIERID, outstandingArraylist.get(position)[0]);
+                            intent.putExtra(Common.NAME, outstandingArraylist.get(position)[1]);
+                            intent.putExtra(Common.PHONENUMBER,outstandingArraylist.get(position)[3].equals("null") ? "" : outstandingArraylist.get(position)[3]);
+                        }
+                        startActivity(intent);
+                    }
+                });
             }
         };
         Runnable postThreadFailed = new Runnable() {
