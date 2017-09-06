@@ -11,7 +11,7 @@
             android:layout_height="wrap_content"
             android:text="InvoiceNO"
             android:textColor="@color/primary_text"
-            android:textSize="17sp"
+            android:textSize="15sp"
             android:id="@+id/invoice_no"
             android:layout_toLeftOf="@+id/balance_amount"
             android:layout_toStartOf="@+id/balance_amount" />

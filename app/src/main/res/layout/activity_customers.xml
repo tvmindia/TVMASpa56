@@ -6,12 +6,21 @@
     android:layout_height="match_parent"
     tools:context="com.tech.thrithvam.spaccounts.Customers"
     android:background="@drawable/primary_gradient">
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner"
+        android:layout_gravity="end"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        />
 <ListView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/customers_list"
+    android:layout_below="@id/spinner"
     android:divider="@null"
-    android:paddingTop="7dp"
+    android:paddingTop="3dp"
     android:scrollbars="none"/>
     <com.wang.avi.AVLoadingIndicatorView
         android:layout_width="wrap_content"

@@ -10,20 +10,53 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Spinner;
 
 import com.wang.avi.AVLoadingIndicatorView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Suppliers extends AppCompatActivity {
-    CustomAdapter adapter;
+    CustomAdapter adapter,outstandingAdapter;
     ArrayList<AsyncTask> asyncTasks=new ArrayList<>();
+    ListView suppliersList;
+    Spinner listOptions;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_suppliers);
+        suppliersList=(ListView)findViewById(R.id.suppliers_list);
         getSuppliers();
+        //Spinner
+        List<String> options = new ArrayList<String>();
+        options.add("All");options.add("Outstanding");
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, R.layout.item_spinner_white, options);
+        dataAdapter.setDropDownViewResource(R.layout.item_spinner );
+        listOptions =(Spinner)findViewById(R.id.spinner);
+        listOptions.setAdapter(dataAdapter);
+        listOptions.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                switch (listOptions.getSelectedItem().toString()){
+                    case "All":
+                        searchView.setQuery("",true);
+                        suppliersList.setAdapter(adapter);
+                        break;
+                    case "Outstanding":
+                        searchView.setQuery("",true);
+                        suppliersList.setAdapter(outstandingAdapter);
+                        break;
+                }
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        listOptions.setVisibility(View.INVISIBLE);
     }
     void getSuppliers(){
         //Threading------------------------------------------------------------------------------------------------------
@@ -42,7 +75,6 @@ public class Suppliers extends AppCompatActivity {
             @Override
             public void run() {
                 adapter=new CustomAdapter(Suppliers.this,common.dataArrayList,Common.SUPPLIERSLIST);
-                ListView suppliersList=(ListView)findViewById(R.id.suppliers_list);
                 suppliersList.setAdapter(adapter);
                 suppliersList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
@@ -55,6 +87,15 @@ public class Suppliers extends AppCompatActivity {
                         startActivity(intent);
                     }
                 });
+                //Outstanding only
+                ArrayList<String[]> outstandingArraylist=new ArrayList<>();
+                for(int i=0;i<common.dataArrayList.size();i++){
+                    if(Double.parseDouble(common.dataArrayList.get(i)[5])>0){
+                        outstandingArraylist.add(common.dataArrayList.get(i));
+                    }
+                }
+                outstandingAdapter=new CustomAdapter(Suppliers.this,outstandingArraylist,Common.CUSTOMERSLIST);
+                listOptions.setVisibility(View.VISIBLE);
             }
         };
         Runnable postThreadFailed = new Runnable() {
@@ -98,8 +139,8 @@ public class Suppliers extends AppCompatActivity {
             }
             @Override
             public boolean onQueryTextChange(String newText) {
-                if(adapter!=null){//for searching
-                    adapter.getFilter(1).filter(searchView.getQuery().toString().trim());
+                if(suppliersList.getAdapter()!=null){//for searching
+                    ((CustomAdapter)suppliersList.getAdapter()).getFilter(1).filter(searchView.getQuery().toString().trim());
                 }
                 return false;
             }
