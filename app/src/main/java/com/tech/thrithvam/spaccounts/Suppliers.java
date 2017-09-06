@@ -87,7 +87,7 @@ public class Suppliers extends AppCompatActivity {
                 outstandingAdapter=new CustomAdapter(Suppliers.this,outstandingArraylist,Common.SUPPLIERSLIST);
                 listOptions.setVisibility(View.VISIBLE);
 
-                suppliersList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+               /* suppliersList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         Intent intent=new Intent(Suppliers.this,Invoices.class);
@@ -104,7 +104,7 @@ public class Suppliers extends AppCompatActivity {
                         }
                         startActivity(intent);
                     }
-                });
+                });*/
             }
         };
         Runnable postThreadFailed = new Runnable() {

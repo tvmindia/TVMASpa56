@@ -89,7 +89,7 @@ public class Customers extends AppCompatActivity {
                 outstandingAdapter=new CustomAdapter(Customers.this,outstandingArraylist,Common.CUSTOMERSLIST);
                 listOptions.setVisibility(View.VISIBLE);
 
-                customersList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            /*    customersList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         Intent intent=new Intent(Customers.this,Invoices.class);
@@ -106,7 +106,7 @@ public class Customers extends AppCompatActivity {
                         }
                         startActivity(intent);
                     }
-                });
+                });*/
             }
         };
         Runnable postThreadFailed = new Runnable() {

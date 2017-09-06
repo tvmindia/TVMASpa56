@@ -1,6 +1,7 @@
 package com.tech.thrithvam.spaccounts;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -99,6 +100,17 @@ public class CustomAdapter extends BaseAdapter {
                     holder.amount.setText("-");
                     holder.amount.setTextColor(Color.GRAY);
                 }
+                convertView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent=new Intent(adapterContext,Invoices.class);
+                        intent.putExtra(Common.CUSTOMER_OR_SUPPLIER, Common.CUSTOMER);
+                        intent.putExtra(Common.CUSTOMERID, filteredObjects.get(fPos)[0]);
+                        intent.putExtra(Common.NAME, filteredObjects.get(fPos)[1]);
+                        intent.putExtra(Common.PHONENUMBER, filteredObjects.get(fPos)[3].equals("null") ? "" : filteredObjects.get(fPos)[3]);
+                        adapterContext.startActivity(intent);
+                    }
+                });
                 break;
             //--------------------------for sales invoice list items------------------
             case Common.SALESLIST:
@@ -217,6 +229,17 @@ public class CustomAdapter extends BaseAdapter {
                     holder.amount.setText("-");
                     holder.amount.setTextColor(Color.GRAY);
                 }
+                convertView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent=new Intent(adapterContext,Invoices.class);
+                        intent.putExtra(Common.CUSTOMER_OR_SUPPLIER, Common.SUPPLIER);
+                        intent.putExtra(Common.SUPPLIERID, filteredObjects.get(fPos)[0]);
+                        intent.putExtra(Common.NAME, filteredObjects.get(fPos)[1]);
+                        intent.putExtra(Common.PHONENUMBER, filteredObjects.get(fPos)[3].equals("null") ? "" : filteredObjects.get(fPos)[3]);
+                        adapterContext.startActivity(intent);
+                    }
+                });
                 break;
             default:
                 break;
