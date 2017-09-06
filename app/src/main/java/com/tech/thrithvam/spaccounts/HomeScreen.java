@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.LineChart;
@@ -96,41 +97,47 @@ public class HomeScreen extends AppCompatActivity {
         Runnable postThread = new Runnable() {
             @Override
             public void run() {
-                if(common.dataArrayList.size()==0){
+                if(common.dataArrayList.size()<=1){
                     return;
                 }
-                chart.setVisibility(View.VISIBLE);
-                List<Entry> entries = new ArrayList<Entry>();
-                final HashMap<Integer, String> numMap = new HashMap<>();
-                for(int i=0;i<common.dataArrayList.size();i++){
-                    entries.add(new Entry(i,Float.parseFloat(common.dataArrayList.get(i)[1])));
-                    numMap.put(i,common.dataArrayList.get(i)[0]);
-                }
-                XAxis xAxis = chart.getXAxis();
-                xAxis.setValueFormatter(new IAxisValueFormatter() {
-                    @Override
-                    public String getFormattedValue(float value, AxisBase axis) {
-                        return numMap.get((int)value);
+                try {
+                    chart.setVisibility(View.VISIBLE);
+                    List<Entry> entries = new ArrayList<Entry>();
+                    final HashMap<Integer, String> numMap = new HashMap<>();
+                    for (int i = 0; i < common.dataArrayList.size(); i++) {
+                        entries.add(new Entry(i, Float.parseFloat(common.dataArrayList.get(i)[1])));
+                        numMap.put(i, common.dataArrayList.get(i)[0]);
                     }
-                });
-                xAxis.setGranularity(1f);
-                xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-                YAxis rightAxis = chart.getAxisRight();
-                rightAxis.setEnabled(false);
+                    XAxis xAxis = chart.getXAxis();
+                    xAxis.setValueFormatter(new IAxisValueFormatter() {
+                        @Override
+                        public String getFormattedValue(float value, AxisBase axis) {
+                            return numMap.get((int) value);
+                        }
+                    });
+                    xAxis.setGranularity(1f);
+                    xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+                    YAxis rightAxis = chart.getAxisRight();
+                    rightAxis.setEnabled(false);
 
-                LineDataSet dataSet = new LineDataSet(entries, "Sales");
-                dataSet.setColor(Color.BLUE);
-                dataSet.setValueTextColor(Color.parseColor("#290000"));
-                dataSet.setValueTextSize(11);
-                LineData lineData = new LineData(dataSet);
-                chart.setData(lineData);
-                // hide legend
-                Legend legend = chart.getLegend();
-                legend.setEnabled(false);
-                chart.getDescription().setEnabled(false);
+                    LineDataSet dataSet = new LineDataSet(entries, "Sales");
+                    dataSet.setColor(Color.BLUE);
+                    dataSet.setValueTextColor(Color.parseColor("#290000"));
+                    dataSet.setValueTextSize(11);
+                    LineData lineData = new LineData(dataSet);
+                    chart.setData(lineData);
+                    // hide legend
+                    Legend legend = chart.getLegend();
+                    legend.setEnabled(false);
+                    chart.getDescription().setEnabled(false);
 
-                chart.invalidate(); // refresh
-                chart.animateX(3000, Easing.EasingOption.Linear);
+                    chart.invalidate(); // refresh
+                    chart.animateX(3000, Easing.EasingOption.Linear);
+                }
+                catch (Exception e){
+                    Toast.makeText(HomeScreen.this, "Error in drawing chart", Toast.LENGTH_SHORT).show();
+                    chart.setVisibility(View.INVISIBLE);
+                }
             }
         };
         Runnable postThreadFailed = new Runnable() {
