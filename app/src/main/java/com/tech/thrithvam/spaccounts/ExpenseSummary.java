@@ -3,6 +3,7 @@ package com.tech.thrithvam.spaccounts;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -166,12 +167,22 @@ public class ExpenseSummary extends AppCompatActivity {
                         expenseListData.add(data);
                     }
                     LayoutInflater inflater = (LayoutInflater)getApplicationContext().getSystemService (Context.LAYOUT_INFLATER_SERVICE);
+                    int totalAmount=0;
                     for(int i=0;i<expenseListData.size();i++){
                         View dataItem=inflater.inflate(R.layout.item_label_value,null);
                         ((TextView)dataItem.findViewById(R.id.value)).setText(expenseListData.get(i)[0].equals("null")?"-":getResources().getString(R.string.rupees,expenseListData.get(i)[0]));
                         ((TextView)dataItem.findViewById(R.id.label)).setText(expenseListData.get(i)[1].equals("null")?"-":expenseListData.get(i)[1]);
+                        totalAmount+=Integer.parseInt(expenseListData.get(i)[0]);
                         dataValuesLinear.addView(dataItem);
                     }
+                    //Total
+                    View dataItem=inflater.inflate(R.layout.item_label_value,null);
+                    ((TextView)dataItem.findViewById(R.id.value)).setText(getResources().getString(R.string.rupees,Integer.toString(totalAmount)));
+                    ((TextView)dataItem.findViewById(R.id.label)).setText("Total");
+                    ((TextView)dataItem.findViewById(R.id.value)).setTextColor(Color.parseColor("#794301"));
+                    ((TextView)dataItem.findViewById(R.id.value)).setTextSize(16);
+                    ((TextView)dataItem.findViewById(R.id.label)).setTextColor(Color.parseColor("#794301"));
+                    dataValuesLinear.addView(dataItem);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
