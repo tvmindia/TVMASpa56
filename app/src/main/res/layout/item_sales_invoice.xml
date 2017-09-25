@@ -19,12 +19,22 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Contact Person Name"
-            android:textColor="@color/primary_text"
+            android:textColor="@color/secondary_text"
             android:textSize="13sp"
             android:id="@+id/contact_person_name"
             android:layout_below="@id/invoice_no"
-            android:layout_toLeftOf="@+id/balance_amount"
-            android:layout_toStartOf="@+id/balance_amount" />
+            android:layout_toStartOf="@+id/paid_amount"
+            android:layout_toLeftOf="@+id/paid_amount" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Company Name"
+            android:textColor="@color/primary_text"
+            android:textSize="13sp"
+            android:id="@+id/company_name"
+            android:layout_below="@id/contact_person_name"
+            android:layout_toStartOf="@+id/due_date"
+            android:layout_toLeftOf="@+id/due_date" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

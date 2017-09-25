@@ -151,7 +151,7 @@ public class InvoiceSummary extends AppCompatActivity {
                                 ArrayList<String[]> invoiceListData = new ArrayList<>();
                                 for (int i = 0; i < invoices.length(); i++) {
                                     JSONObject jsonObject1 = invoices.getJSONObject(i);
-                                    String[] data = new String[7];
+                                    String[] data = new String[8];
                                     data[0] = jsonObject1.getString("ID");
                                     data[1] = jsonObject1.getString("InvoiceNo");
                                     data[2] = jsonObject1.getJSONObject("customerObj").getString("ID");
@@ -159,6 +159,7 @@ public class InvoiceSummary extends AppCompatActivity {
                                     data[4] = jsonObject1.getString("PaymentDueDateFormatted");
                                     data[5] = jsonObject1.getString("BalanceDue");
                                     data[6] = jsonObject1.getString("PaidAmount");
+                                    data[7] = jsonObject1.getJSONObject("customerObj").getString("CompanyName");
                                     invoiceListData.add(data);
                                 }
                                 CustomAdapter adapter = new CustomAdapter(getContext(), invoiceListData, Common.SALESLIST);
@@ -282,7 +283,7 @@ public class InvoiceSummary extends AppCompatActivity {
                                 ArrayList<String[]> invoiceListData = new ArrayList<>();
                                 for (int i = 0; i < invoices.length(); i++) {
                                     JSONObject jsonObject1 = invoices.getJSONObject(i);
-                                    String[] data = new String[7];
+                                    String[] data = new String[8];
                                     data[0] = jsonObject1.getString("ID");
                                     data[1] = jsonObject1.getString("InvoiceNo");
                                     data[2] = jsonObject1.getJSONObject("customerObj").getString("ID");
@@ -290,6 +291,7 @@ public class InvoiceSummary extends AppCompatActivity {
                                     data[4] = jsonObject1.getString("PaymentDueDateFormatted");
                                     data[5] = jsonObject1.getString("BalanceDue");
                                     data[6] = jsonObject1.getString("PaidAmount");
+                                    data[7] = jsonObject1.getJSONObject("customerObj").getString("CompanyName");
                                     invoiceListData.add(data);
                                 }
                                 CustomAdapter adapter = new CustomAdapter(getContext(), invoiceListData, Common.SALESLIST);
