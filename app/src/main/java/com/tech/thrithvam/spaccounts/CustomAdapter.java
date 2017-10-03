@@ -130,15 +130,15 @@ public class CustomAdapter extends BaseAdapter {
                 }
                 //Label loading--------------------
                 holder.invoiceNo.setText((filteredObjects.get(position)[1].equals("null")?"-":filteredObjects.get(position)[1]));
-                holder.customerName.setText((filteredObjects.get(position)[7].equals("null")?"":filteredObjects.get(position)[7]));
+                if(filteredObjects.get(position)[7]!=null)holder.customerName.setText((filteredObjects.get(position)[7].equals("null")?"":filteredObjects.get(position)[7]));
                 holder.contactPerson.setText((filteredObjects.get(position)[3].equals("null")?"-":filteredObjects.get(position)[3]));
                 holder.balAmount.setText((filteredObjects.get(position)[5].equals("null")?"-":adapterContext.getResources().getString(R.string.rupees,filteredObjects.get(position)[5])));
                 holder.paidAmount.setText((filteredObjects.get(position)[6].equals("null")?"-":adapterContext.getResources().getString(R.string.paid_amount,filteredObjects.get(position)[6])));
                 holder.dueDate.setText((filteredObjects.get(position)[4].equals("null")?"-":adapterContext.getResources().getString(R.string.due_date,filteredObjects.get(position)[4])));
-                if(filteredObjects.get(0).length>7){//due days available
-                    if(!filteredObjects.get(position)[7].equals("null")){
+                if(filteredObjects.get(0).length>8){//due days available
+                    if(!filteredObjects.get(position)[8].equals("null")){
                         try {
-                            int dueDays=Integer.parseInt(filteredObjects.get(position)[7]);
+                            int dueDays=Integer.parseInt(filteredObjects.get(position)[8]);
                             holder.dueDays.setVisibility(View.VISIBLE);
                             if(dueDays<0){
                                 holder.dueDays.setText(adapterContext.getResources().getString(R.string.days_passed_due,Integer.toString(dueDays*-1)));
@@ -154,7 +154,7 @@ public class CustomAdapter extends BaseAdapter {
                                 holder.dueDays.setText(adapterContext.getResources().getString(R.string.due_days,Integer.toString(dueDays)));
                             }
                         }
-                        catch (Exception e){}//not a number. here may be company name in 7th position
+                        catch (Exception e){}//not a number.
                     }
                 }
                 break;
@@ -164,6 +164,7 @@ public class CustomAdapter extends BaseAdapter {
                     holder = new Holder();
                     convertView = inflater.inflate(R.layout.item_purchase_invoice, null);
                     holder.invoiceNo = (TextView) convertView.findViewById(R.id.invoice_no);
+                    holder.customerName = (TextView) convertView.findViewById(R.id.company_name);
                     holder.contactPerson=(TextView)convertView.findViewById(R.id.contact_person_name);
                     holder.balAmount=(TextView)convertView.findViewById(R.id.balance_amount);
                     holder.paidAmount = (TextView) convertView.findViewById(R.id.paid_amount);
@@ -179,9 +180,11 @@ public class CustomAdapter extends BaseAdapter {
                 holder.balAmount.setText((filteredObjects.get(position)[5].equals("null")?"-":adapterContext.getResources().getString(R.string.rupees,filteredObjects.get(position)[5])));
                 holder.paidAmount.setText((filteredObjects.get(position)[6].equals("null")?"-":adapterContext.getResources().getString(R.string.paid_amount,filteredObjects.get(position)[6])));
                 holder.dueDate.setText((filteredObjects.get(position)[4].equals("null")?"-":adapterContext.getResources().getString(R.string.due_date,filteredObjects.get(position)[4])));
-                if(filteredObjects.get(0).length>7){//due days available
-                    if(!filteredObjects.get(position)[7].equals("null")){
-                        int dueDays=Integer.parseInt(filteredObjects.get(position)[7]);
+                if(filteredObjects.get(position)[7]!=null)holder.customerName.setText((filteredObjects.get(position)[7].equals("null")?"":filteredObjects.get(position)[7]));
+                if(filteredObjects.get(0).length>8){//due days available
+                    if(!filteredObjects.get(position)[8].equals("null")){
+                        try {
+                        int dueDays=Integer.parseInt(filteredObjects.get(position)[8]);
                         holder.dueDays.setVisibility(View.VISIBLE);
                         if(dueDays<0){
                             holder.dueDays.setText(adapterContext.getResources().getString(R.string.days_passed_due,Integer.toString(dueDays*-1)));
@@ -196,6 +199,8 @@ public class CustomAdapter extends BaseAdapter {
                         else {
                             holder.dueDays.setText(adapterContext.getResources().getString(R.string.due_days,Integer.toString(dueDays)));
                         }
+                        }
+                        catch (Exception e){}//not a number.
                     }
                 }
                 break;

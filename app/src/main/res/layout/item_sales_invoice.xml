@@ -28,7 +28,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Company Name"
+            android:text=""
             android:textColor="@color/primary_text"
             android:textSize="13sp"
             android:id="@+id/company_name"
@@ -75,15 +75,15 @@
             android:layout_below="@+id/paid_amount"
             android:layout_alignParentEnd="true"/>
         <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/due_days"
-        android:visibility="gone"
-        android:textColor="@color/secondary_text"
-        android:textSize="12sp"
-        android:id="@+id/due_days"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/due_date"
-        android:layout_alignParentEnd="true"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/days_passed_due"
+            android:visibility="gone"
+            android:textColor="@color/secondary_text"
+            android:textSize="12sp"
+            android:id="@+id/due_days"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/due_date"
+            android:layout_alignParentEnd="true"/>
     </RelativeLayout>
 </LinearLayout>
