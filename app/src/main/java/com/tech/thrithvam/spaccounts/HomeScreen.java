@@ -180,6 +180,10 @@ public class HomeScreen extends AppCompatActivity {
         Intent intent=new Intent(this,Suppliers.class);
         startActivity(intent);
     }
+    public void ApprovalClick(View view){
+        Intent intent=new Intent(this,Approvals.class);
+        startActivity(intent);
+    }
     @Override
     public void onBackPressed() {
         for(int i=0;i<asyncTasks.size();i++){

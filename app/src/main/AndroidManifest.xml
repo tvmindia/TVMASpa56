@@ -51,9 +51,13 @@
             android:name=".SupplierDetails"
             android:configChanges="orientation|screenSize"
             android:label="Suppliers" />
-        <activity android:name=".Invoices"
+        <activity
+            android:name=".Invoices"
             android:configChanges="orientation|screenSize"
-            android:label="Invoices"/>
+            android:label="Invoices" />
+        <activity android:name=".Approvals"
+            android:configChanges="orientation|screenSize"
+            android:label="@string/approvals"/>
     </application>
 
 </manifest>

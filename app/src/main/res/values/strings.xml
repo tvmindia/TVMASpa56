@@ -3,7 +3,8 @@
     <string name="title_activity_invoice_summary">Invoice Summary</string>
     <!--<string name="url" translatable="false">http://192.168.1.109:321/</string>-->
     <!--<string name="url" translatable="false">http://jdadmin-001-site3.itempurl.com/</string>-->
-    <string name="url" translatable="false">http://www.spappsportal.com/</string>
+    <!--<string name="url" translatable="false">http://www.spappsportal.com/</string>-->
+    <string name="url" translatable="false"> http://jdadmin-001-site8.itempurl.com/</string>
     <string name="rupees">₹ %1$s</string>
     <string name="failed_try_again">Failed attempt. Please try again</string>
     <string name="failed_server">Failed to get data from server.</string>111
@@ -36,4 +37,5 @@
     <string name="suppliers">Suppliers</string>
     <string name="days_passed_due">%1$s days passed due</string>
     <string name="due_days">Due days: %1$s</string>
+    <string name="approvals">Approvals</string>
 </resources>

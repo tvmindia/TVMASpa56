@@ -11,6 +11,9 @@ import android.widget.Filter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -57,8 +60,10 @@ public class CustomAdapter extends BaseAdapter {
         ImageView callButton;
         //Suppliers List------------
         TextView supplierName;
-        //Sales list-------------
+        //Sales list----------------
         TextView invoiceNo,contactPerson,balAmount,paidAmount,dueDate, dueDays;
+        //Approvals-----------------
+        TextView entryNo,paymentMode,paymentdate;
     }
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -250,6 +255,39 @@ public class CustomAdapter extends BaseAdapter {
                         adapterContext.startActivity(intent);
                     }
                 });
+                break;
+            //--------------------------for approval list items------------------
+            case Common.APPROVALLIST:
+                if (convertView == null) {
+                    holder = new Holder();
+                    convertView = inflater.inflate(R.layout.item_approval, null);
+                    holder.customerName = (TextView) convertView.findViewById(R.id.company_name);
+                    holder.entryNo=(TextView)convertView.findViewById(R.id.entry_no);
+                    holder.paymentMode=(TextView)convertView.findViewById(R.id.payment_mode);
+                    holder.paymentdate=(TextView)convertView.findViewById(R.id.payment_date);
+                    holder.amount=(TextView)convertView.findViewById(R.id.amount);
+                    convertView.setTag(holder);
+                } else {
+                    holder = (Holder) convertView.getTag();
+                }
+                //Label loading--------------------
+                if(!filteredObjects.get(position)[5].equals("null"))
+                {
+                    try {
+                        JSONObject jsonObject=new JSONObject(filteredObjects.get(position)[5]);
+                        String companyName=jsonObject.getString("CompanyName");
+                        holder.customerName.setText(companyName);
+                    } catch (JSONException e) {
+                        holder.customerName.setText("-");
+                    }
+                }
+                else {
+                    holder.customerName.setText("");
+                }
+                holder.entryNo.setText((filteredObjects.get(position)[1].equals("null")?"-":filteredObjects.get(position)[1]));
+                holder.paymentMode.setText((filteredObjects.get(position)[2].equals("null")?"-":filteredObjects.get(position)[2]));
+                holder.paymentdate.setText((filteredObjects.get(position)[3].equals("null")?"-":filteredObjects.get(position)[3]));
+                holder.amount.setText((filteredObjects.get(position)[4].equals("null")?"-":adapterContext.getResources().getString(R.string.rupees,filteredObjects.get(position)[4])));
                 break;
             default:
                 break;

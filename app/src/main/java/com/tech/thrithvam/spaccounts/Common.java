@@ -35,7 +35,8 @@ public class Common {
     static final String SALESLIST="sales",
             PURCHASELIST="purchases",
             CUSTOMERSLIST="customers",
-            SUPPLIERSLIST="suppliers"
+            SUPPLIERSLIST="suppliers",
+            APPROVALLIST="approvals"
                     ;
     //Intent constants
     static final String CUSTOMERID="customerID",
