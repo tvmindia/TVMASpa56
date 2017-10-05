@@ -55,7 +55,11 @@
             android:name=".Invoices"
             android:configChanges="orientation|screenSize"
             android:label="Invoices" />
-        <activity android:name=".Approvals"
+        <activity
+            android:name=".Approvals"
+            android:configChanges="orientation|screenSize"
+            android:label="Pending for Approval" />
+        <activity android:name=".ApprovalDetails"
             android:configChanges="orientation|screenSize"
             android:label="@string/approvals"/>
     </application>

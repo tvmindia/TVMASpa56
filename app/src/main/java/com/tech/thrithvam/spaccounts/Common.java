@@ -36,15 +36,22 @@ public class Common {
             PURCHASELIST="purchases",
             CUSTOMERSLIST="customers",
             SUPPLIERSLIST="suppliers",
-            APPROVALLIST="approvals"
+            APPROVALLIST="approvals",
+            APPROVALDETAILLIST="approvaldetails"
                     ;
     //Intent constants
     static final String CUSTOMERID="customerID",
                         SUPPLIERID="supplierID",
                         NAME="name",
                         PHONENUMBER="phoneNumber",
-                        CUSTOMER_OR_SUPPLIER="customerORsupplier";
-
+                        CUSTOMER_OR_SUPPLIER="customerORsupplier",
+                        APPROVALID="approvalID",
+                        ENTRYNO="entryno",
+                        PAYMENT_MODE="paymentmode",
+                        PAYMENT_DATE="paymentdate",
+                        AMOUNT="amount",
+                        COMPANY_DETAILS="companydetails"
+                            ;
     //To load image from a url------------------------------------------------------
     static void LoadImage(Context context,ImageView imageView, String imageURL, int failImage){
        /* try {
