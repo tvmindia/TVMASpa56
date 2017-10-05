@@ -93,15 +93,15 @@ public class ApprovalDetails extends AppCompatActivity {
             public void run() {
                 ArrayList<String[]> dataArrayList=new ArrayList<>();
                 try {
-                  /*  JSONArray records=new JSONArray(common.json);
+                    JSONArray records=new JSONArray(common.json);
                     if(records.length()==0){
                         Common.toastMessage(ApprovalDetails.this,"No details Available");
                         findViewById(R.id.no_items).setVisibility(View.VISIBLE);
                         return;
                     }
                     for (int i = 0; i < records.length(); i++) {
-                        JSONObject jsonObject1 = records.getJSONObject(i);*/
-                        JSONObject jsonObject2= new JSONObject(common.json).getJSONObject("supplierPaymentsDetailObj");
+                        JSONObject jsonObject1 = records.getJSONObject(i);
+                        JSONObject jsonObject2= jsonObject1.getJSONObject("supplierPaymentsDetailObj");
                         String[] data = new String[5];
                         data[0] = jsonObject2.getString("InvoiceNo");
                         data[1] = jsonObject2.getString("InvoiceAmount");
@@ -109,7 +109,7 @@ public class ApprovalDetails extends AppCompatActivity {
                         data[3] = jsonObject2.getString("CurrPayment");
                         data[4] = jsonObject2.getString("BalancePayment");
                         dataArrayList.add(data);
-                   /* }*/
+                    }
                 } catch (JSONException e) {
                     Toast.makeText(ApprovalDetails.this, "Some error occured", Toast.LENGTH_SHORT).show();
                 }
