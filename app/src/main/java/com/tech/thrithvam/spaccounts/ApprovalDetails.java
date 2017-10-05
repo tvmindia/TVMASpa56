@@ -1,8 +1,11 @@
 package com.tech.thrithvam.spaccounts;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Handler;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -26,6 +29,7 @@ import java.util.ArrayList;
 
 public class ApprovalDetails extends AppCompatActivity {
     ArrayList<AsyncTask> asyncTasks=new ArrayList<>();
+    CircularProgressButton approveButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,7 +63,21 @@ public class ApprovalDetails extends AppCompatActivity {
         }
         headerView.addView(headerDetails);
         View approveButtonView=inflater.inflate(R.layout.item_approval_button,null);
-        //CircularProgressButton loginButton=(CircularProgressButton)approveButtonView.findViewById(R.id.btnWithText);
+        approveButton=(CircularProgressButton)approveButtonView.findViewById(R.id.btnWithText);
+        approveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new AlertDialog.Builder(ApprovalDetails.this).setIcon(android.R.drawable.ic_dialog_alert)//.setTitle(R.string.exit)
+                        .setMessage(getResources().getString(R.string.approve_q))
+                        .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            approve();
+                            }
+                        }).setNegativeButton(R.string.cancel, null)
+                        .setCancelable(true).show();
+            }
+        });
         headerView.addView(approveButtonView);
 
     }
@@ -116,6 +134,49 @@ public class ApprovalDetails extends AppCompatActivity {
                 postThreadFailed);
         asyncTasks.add(common.asyncTask);
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    }
+    void approve(){
+        approveButton.setClickable(false);
+        //Loading
+        approveButton.setIndeterminateProgressMode(true);
+        approveButton.setProgress(50);
+        //Threading------------------------------------------------------------------------------------------------------
+        final Common common=new Common();
+        String webService="/API/Supplier/GetApprovedSupplierPayment";
+        String postData = "{\"ID\":\""+getIntent().getExtras().getString(Common.APPROVALID)+"\"}";
+        String[] dataColumns={};
+        Runnable postThread=new Runnable() {
+            @Override
+            public void run() {
+                approveButton.setProgress(100);
+
+                Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            Intent intent = new Intent(ApprovalDetails.this, Approvals.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK
+                                    | Intent.FLAG_ACTIVITY_CLEAR_TOP
+                                    | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(intent);
+                        }
+                    }, 2000);
+            }
+        };
+        Runnable postThreadFailed=new Runnable() {
+            @Override
+            public void run() {
+                Common.toastMessage(ApprovalDetails.this,common.msg);
+                Common.toastMessage(ApprovalDetails.this, R.string.failed_try_again);
+                approveButton.setProgress(-1);
+            }};
+        common.AsynchronousThread(ApprovalDetails.this,
+                webService,
+                postData,
+                null,
+                dataColumns,
+                postThread,
+                postThreadFailed);
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

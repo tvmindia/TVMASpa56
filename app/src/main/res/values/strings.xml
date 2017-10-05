@@ -41,4 +41,7 @@
     <string name="invoice_amount_label">Invoice Amount: %1$s</string>
     <string name="current_amount_label">Current Amount: </string>
     <string name="balance_amount_label">Balance Amount: ₹ %1$s</string>
+    <string name="approve_q">Do you want to approve this?</string>
+    <string name="yes">Yes</string>
+    <string name="cancel">Cancel</string>
 </resources>
