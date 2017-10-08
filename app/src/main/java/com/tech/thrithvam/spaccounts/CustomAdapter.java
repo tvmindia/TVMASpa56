@@ -308,7 +308,7 @@ public class CustomAdapter extends BaseAdapter {
                 //Label loading--------------------
                 holder.invoiceNo.setText((filteredObjects.get(position)[0].equals("null")?"-":filteredObjects.get(position)[0]));
                 holder.invoiceAmount.setText((filteredObjects.get(position)[1].equals("null")?"-":adapterContext.getResources().getString(R.string.invoice_amount_label,filteredObjects.get(position)[1])));
-                holder.paidAmount.setText((filteredObjects.get(position)[2].equals("null")?"-":adapterContext.getResources().getString(R.string.paid_amount,filteredObjects.get(position)[2])));
+                holder.paidAmount.setText((filteredObjects.get(position)[2].equals("null")?"-":adapterContext.getResources().getString(R.string.previous_payment_label,filteredObjects.get(position)[2])));
                 holder.currentAmount.setText((filteredObjects.get(position)[3].equals("null")?"-":adapterContext.getResources().getString(R.string.rupees,filteredObjects.get(position)[3])));
                 holder.balAmount.setText((filteredObjects.get(position)[4].equals("null")?"-":adapterContext.getResources().getString(R.string.balance_amount_label,filteredObjects.get(position)[4])));
                 break;

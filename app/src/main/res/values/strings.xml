@@ -38,10 +38,11 @@
     <string name="days_passed_due">%1$s days passed due</string>
     <string name="due_days">Due days: %1$s</string>
     <string name="approvals">Approvals</string>
-    <string name="invoice_amount_label">Invoice Amount: %1$s</string>
+    <string name="invoice_amount_label">Invoice Amount: ₹ %1$s</string>
     <string name="current_amount_label">Current Amount: </string>
     <string name="balance_amount_label">Balance Amount: ₹ %1$s</string>
     <string name="approve_q">Do you want to approve this?</string>
     <string name="yes">Yes</string>
     <string name="cancel">Cancel</string>
+    <string name="previous_payment_label">Previous Payment: ₹ %1$s</string>
 </resources>
