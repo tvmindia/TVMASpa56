@@ -7,13 +7,7 @@ xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="match_parent"
     tools:context="com.tech.thrithvam.spaccounts.ExpenseSummary"
     android:background="@drawable/primary_gradient">
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -94,9 +88,23 @@ xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
+                android:id="@+id/total_summary"/>
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
                 android:id="@+id/data_values_linear"
                 android:padding="10dp"
                 />
+        </LinearLayout>
+        </ScrollView>
             <com.wang.avi.AVLoadingIndicatorView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -107,6 +115,5 @@ xmlns:android="http://schemas.android.com/apk/res/android"
                 />
         </LinearLayout>
     </android.support.v7.widget.CardView>
-    </LinearLayout>
-    </ScrollView>
+
 </RelativeLayout>

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -142,8 +143,10 @@ public class ExpenseSummary extends AppCompatActivity {
             }
             postData="{\"chartOfAccountsObj\":{\"days\":\""+days+"\"}}}";
         }
+        //clear values displayed
         final LinearLayout dataValuesLinear=(LinearLayout)findViewById(R.id.data_values_linear);
         dataValuesLinear.removeAllViews();
+        ((LinearLayout)findViewById(R.id.total_summary)).removeAllViews();
         //Threading------------------------------------------------------------------------------------------------------
         final Common common = new Common();
         String webService = "API/Expense/GetExpenseDetailsForMobile";
@@ -179,10 +182,14 @@ public class ExpenseSummary extends AppCompatActivity {
                     View dataItem=inflater.inflate(R.layout.item_label_value,null);
                     ((TextView)dataItem.findViewById(R.id.value)).setText(getResources().getString(R.string.rupees,Integer.toString(totalAmount)));
                     ((TextView)dataItem.findViewById(R.id.label)).setText("Total");
-                    ((TextView)dataItem.findViewById(R.id.value)).setTextColor(Color.parseColor("#794301"));
+                    ((TextView)dataItem.findViewById(R.id.label)).setTypeface(null, Typeface.BOLD);
+                    ((TextView)dataItem.findViewById(R.id.value)).setTextColor(Color.parseColor("#290000"));
                     ((TextView)dataItem.findViewById(R.id.value)).setTextSize(16);
-                    ((TextView)dataItem.findViewById(R.id.label)).setTextColor(Color.parseColor("#794301"));
-                    dataValuesLinear.addView(dataItem);
+                    ((TextView)dataItem.findViewById(R.id.value)).setTypeface(null, Typeface.BOLD);
+                    ((TextView)dataItem.findViewById(R.id.label)).setTextColor(Color.parseColor("#290000"));
+                    (dataItem.findViewById(R.id.top_divider)).setVisibility(View.GONE);
+                    (dataItem.findViewById(R.id.colon)).setVisibility(View.GONE);
+                    ((LinearLayout)findViewById(R.id.total_summary)).addView(dataItem);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
