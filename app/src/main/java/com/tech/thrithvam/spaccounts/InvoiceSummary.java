@@ -396,6 +396,139 @@ public class InvoiceSummary extends AppCompatActivity {
                     ((Activity)getContext()).finish();
                 }
             }
+            else if(getArguments().getInt(ARG_SECTION_NUMBER)==3) {//date-wise
+                if (salesORpurchase == Common.SALES) {
+                    //Threading------------------------------------------------------------------------------------------------------
+                    final Common common = new Common();
+                    String webService = "/API/InvoiceSummary/GetCustomerInvoicesByDateWiseForMobile";
+                    String postData = "";
+                    AVLoadingIndicatorView loadingIndicator = (AVLoadingIndicatorView) rootView.findViewById(R.id.loading_indicator);
+                    String[] dataColumns = {};
+                    Runnable postThread = new Runnable() {
+                        @Override
+                        public void run() {
+                            JSONObject jsonObject;
+                            try {
+                                jsonObject=new JSONObject(common.json);
+                                JSONArray invoices = jsonObject.getJSONArray("List");
+                                if(invoices.length()==0){
+                                    Common.toastMessage(getContext(),getContext().getResources().getString(R.string.no_items)+" in list");
+                                    (rootView.findViewById(R.id.no_items)).setVisibility(View.VISIBLE);
+                                    return;
+                                }
+                                ArrayList<String[]> invoiceListData = new ArrayList<>();
+                                for (int i = 0; i < invoices.length(); i++) {
+                                    JSONObject jsonObject1 = invoices.getJSONObject(i);
+                                    String[] data = new String[8];
+                                    data[0] = jsonObject1.getString("ID");
+                                    data[1] = jsonObject1.getString("InvoiceNo");
+                                    data[2] = jsonObject1.getJSONObject("customerObj").getString("ID");
+                                    data[3] = jsonObject1.getJSONObject("customerObj").getString("ContactPerson");
+                                    data[4] = jsonObject1.getString("PaymentDueDateFormatted");
+                                    data[5] = jsonObject1.getString("BalanceDue");
+                                    data[6] = jsonObject1.getString("PaidAmount");
+                                    data[7] = jsonObject1.getJSONObject("customerObj").getString("CompanyName");
+                                    invoiceListData.add(data);
+                                }
+                                CustomAdapter adapter = new CustomAdapter(getContext(), invoiceListData, Common.SALESLIST);
+                                invoiceList.setAdapter(adapter);
+
+                                View invoiceHeader = inflater.inflate(R.layout.item_invoice_header, null);
+                                fragmentLinear.addView(invoiceHeader);
+                                JSONObject summary = jsonObject.getJSONObject("Summary");
+                                ((TextView)invoiceHeader.findViewById(R.id.amount)).setText("Amount: "+ summary.getString("AmountFormatted"));
+                                ((TextView)invoiceHeader.findViewById(R.id.count)).setText("No of Invoices: "+ summary.getString("count"));
+                                (rootView.findViewById(R.id.list_card)).setVisibility(View.VISIBLE);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    };
+                    Runnable postThreadFailed = new Runnable() {
+                        @Override
+                        public void run() {
+                            Common.toastMessage(getContext(), R.string.failed_server);
+                        }
+                    };
+
+                    common.AsynchronousThread(getContext(),
+                            webService,
+                            postData,
+                            loadingIndicator,
+                            dataColumns,
+                            postThread,
+                            postThreadFailed);
+                    asyncTasks.add(common.asyncTask);
+                    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                }
+                else if(salesORpurchase==Common.PURCHASE) {
+                    //Threading------------------------------------------------------------------------------------------------------
+                    final Common common = new Common();
+                    String webService = "API/PurchaseSummary/GetSupplierPurchaseByDateWiseForMobile";
+                    String postData = "{\"ToDate\":\"15-Oct-2017\",\"FromDate\":\"15-Jun-2017\"}";
+                    AVLoadingIndicatorView loadingIndicator = (AVLoadingIndicatorView) rootView.findViewById(R.id.loading_indicator);
+                    String[] dataColumns = {};
+                    Runnable postThread = new Runnable() {
+                        @Override
+                        public void run() {
+                            JSONObject jsonObject;
+                            try {
+                                jsonObject=new JSONObject(common.json);
+                                JSONArray invoices = jsonObject.getJSONArray("List");
+                                if(invoices.length()==0){
+                                    Common.toastMessage(getContext(),getContext().getResources().getString(R.string.no_items)+" in list");
+                                    (rootView.findViewById(R.id.no_items)).setVisibility(View.VISIBLE);
+                                    return;
+                                }
+                                ArrayList<String[]> invoiceListData = new ArrayList<>();
+                                for (int i = 0; i < invoices.length(); i++) {
+                                    JSONObject jsonObject1 = invoices.getJSONObject(i);
+                                    String[] data = new String[8];
+                                    data[0] = jsonObject1.getString("ID");
+                                    data[1] = jsonObject1.getString("InvoiceNo");
+                                    data[2] = jsonObject1.getJSONObject("suppliersObj").getString("ID");
+                                    data[3] = jsonObject1.getJSONObject("suppliersObj").getString("ContactPerson");
+                                    data[4] = jsonObject1.getString("PaymentDueDateFormatted");
+                                    data[5] = jsonObject1.getString("BalanceDue");
+                                    data[6] = jsonObject1.getString("PaidAmount");
+                                    data[7] = jsonObject1.getJSONObject("suppliersObj").getString("CompanyName");
+                                    invoiceListData.add(data);
+                                }
+                                CustomAdapter adapter = new CustomAdapter(getContext(), invoiceListData, Common.PURCHASELIST);
+                                invoiceList.setAdapter(adapter);
+
+                                View invoiceHeader = inflater.inflate(R.layout.item_invoice_header, null);
+                                fragmentLinear.addView(invoiceHeader);
+                                JSONObject summary = jsonObject.getJSONObject("Summary");
+                                ((TextView)invoiceHeader.findViewById(R.id.amount)).setText("Amount: "+ summary.getString("AmountFormatted"));
+                                ((TextView)invoiceHeader.findViewById(R.id.count)).setText("No of Invoices: "+ summary.getString("count"));
+                                (rootView.findViewById(R.id.list_card)).setVisibility(View.VISIBLE);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    };
+                    Runnable postThreadFailed = new Runnable() {
+                        @Override
+                        public void run() {
+                            Common.toastMessage(getContext(), R.string.failed_server);
+                        }
+                    };
+
+                    common.AsynchronousThread(getContext(),
+                            webService,
+                            postData,
+                            loadingIndicator,
+                            dataColumns,
+                            postThread,
+                            postThreadFailed);
+                    asyncTasks.add(common.asyncTask);
+                    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                }
+                else {
+                    ((Activity)getContext()).finish();
+                }
+            }
             return rootView;
         }
     }
@@ -420,7 +553,7 @@ public class InvoiceSummary extends AppCompatActivity {
         @Override
         public int getCount() {
             // Show 2 total pages.
-            return 2;
+            return 3;
         }
 
         @Override
@@ -430,6 +563,8 @@ public class InvoiceSummary extends AppCompatActivity {
                     return "Outstanding";
                 case 1:
                     return "Open";
+                case 2:
+                    return "Date-wise";
             }
             return null;
         }
