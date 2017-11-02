@@ -170,17 +170,17 @@ public class ExpenseSummary extends AppCompatActivity {
                         expenseListData.add(data);
                     }
                     LayoutInflater inflater = (LayoutInflater)getApplicationContext().getSystemService (Context.LAYOUT_INFLATER_SERVICE);
-                    int totalAmount=0;
+                    Double totalAmount=0.0;
                     for(int i=0;i<expenseListData.size();i++){
                         View dataItem=inflater.inflate(R.layout.item_label_value,null);
-                        ((TextView)dataItem.findViewById(R.id.value)).setText(expenseListData.get(i)[0].equals("null")?"-":getResources().getString(R.string.rupees,expenseListData.get(i)[0]));
+                        ((TextView)dataItem.findViewById(R.id.value)).setText(expenseListData.get(i)[0].equals("null")?"-":getResources().getString(R.string.rupees,String.format(Locale.US,"%.2f",Double.parseDouble(expenseListData.get(i)[0]))));
                         ((TextView)dataItem.findViewById(R.id.label)).setText(expenseListData.get(i)[1].equals("null")?"-":expenseListData.get(i)[1]);
-                        totalAmount+=Integer.parseInt(expenseListData.get(i)[0]);
+                        totalAmount+=Double.parseDouble(expenseListData.get(i)[0]);
                         dataValuesLinear.addView(dataItem);
                     }
                     //Total
                     View dataItem=inflater.inflate(R.layout.item_label_value,null);
-                    ((TextView)dataItem.findViewById(R.id.value)).setText(getResources().getString(R.string.rupees,Integer.toString(totalAmount)));
+                    ((TextView)dataItem.findViewById(R.id.value)).setText(getResources().getString(R.string.rupees,String.format(Locale.US,"%.2f",totalAmount)));
                     ((TextView)dataItem.findViewById(R.id.label)).setText("Total");
                     ((TextView)dataItem.findViewById(R.id.label)).setTypeface(null, Typeface.BOLD);
                     ((TextView)dataItem.findViewById(R.id.value)).setTextColor(Color.parseColor("#290000"));
