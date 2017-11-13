@@ -47,6 +47,9 @@ public class ApprovalDetails extends AppCompatActivity {
                 getIntent().getExtras().getString(Common.PAYMENT_MODE).equals("null")?"-":getIntent().getExtras().getString(Common.PAYMENT_MODE));
         ((TextView)headerDetails.findViewById(R.id.amount)).setText(
                 getIntent().getExtras().getString(Common.AMOUNT).equals("null")?"-":getResources().getString(R.string.rupees,getIntent().getExtras().getString(Common.AMOUNT)));
+        ((TextView)headerDetails.findViewById(R.id.general_notes)).setText(
+                getIntent().getExtras().getString(Common.GENERAL_NOTES).equals("null")?"-":getIntent().getExtras().getString(Common.GENERAL_NOTES));
+        headerDetails.findViewById(R.id.general_notes).setVisibility(View.VISIBLE);
         String companyName="";
         if(!getIntent().getExtras().getString(Common.COMPANY_DETAILS).equals("null"))
         {

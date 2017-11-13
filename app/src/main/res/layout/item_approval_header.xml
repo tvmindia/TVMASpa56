@@ -8,7 +8,9 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp">
+        android:paddingTop="10dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
 
         <TextView
             android:id="@+id/entry_no"
@@ -50,7 +52,16 @@
             android:id="@+id/payment_mode"
             android:layout_toLeftOf="@+id/amount"
             android:layout_toStartOf="@+id/amount"/>
-
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/payment_mode"
+            android:text=""
+            android:textColor="@color/primary_text"
+            android:textSize="12sp"
+            android:id="@+id/general_notes"
+            android:gravity="end"
+            android:visibility="gone"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -58,7 +69,7 @@
             android:layout_alignParentEnd="true"
             android:text="853543544152"
             android:gravity="end"
-            android:textColor="@color/secondary_text"
+            android:textColor="@color/primary_text"
             android:textSize="14sp"
             android:layout_centerVertical="true"
             android:id="@+id/amount"/>

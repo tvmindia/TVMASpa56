@@ -45,7 +45,8 @@ public class Approvals extends AppCompatActivity {
                 "PaymentMode",//2
                 "PaymentDateFormatted",//3
                 "TotalPaidAmt",//4
-                "supplierObj"//5
+                "supplierObj",//5
+                "GeneralNotes"//6
         };
         Runnable postThread = new Runnable() {
             @Override
@@ -67,6 +68,7 @@ public class Approvals extends AppCompatActivity {
                         approvalDetailsIntent.putExtra(Common.PAYMENT_DATE,common.dataArrayList.get(position)[3]);
                         approvalDetailsIntent.putExtra(Common.AMOUNT,common.dataArrayList.get(position)[4]);
                         approvalDetailsIntent.putExtra(Common.COMPANY_DETAILS,common.dataArrayList.get(position)[5]);
+                        approvalDetailsIntent.putExtra(Common.GENERAL_NOTES,common.dataArrayList.get(position)[6]);
                         startActivity(approvalDetailsIntent);
                     }
                 });
