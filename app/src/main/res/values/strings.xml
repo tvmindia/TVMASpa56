@@ -46,4 +46,5 @@
     <string name="yes">Yes</string>
     <string name="cancel">Cancel</string>
     <string name="previous_payment_label">Previous Payment: ₹ %1$s</string>
+    <string name="include_internal_companies">Include Internal Companies</string>
 </resources>

@@ -15,12 +15,12 @@
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
-        <service
-            android:name=".AppFirebaseMessagingService">
+        <service android:name=".AppFirebaseMessagingService">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+
         <activity
             android:name=".Login"
             android:configChanges="orientation|screenSize"
@@ -70,9 +70,11 @@
             android:name=".Approvals"
             android:configChanges="orientation|screenSize"
             android:label="Pending for Approval" />
-        <activity android:name=".ApprovalDetails"
+        <activity
+            android:name=".ApprovalDetails"
             android:configChanges="orientation|screenSize"
-            android:label="@string/approvals"/>
+            android:label="@string/approvals" />
+        <activity android:name=".Settings"></activity>
     </application>
 
 </manifest>
