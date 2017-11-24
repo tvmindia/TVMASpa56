@@ -1,6 +1,7 @@
 package com.tech.thrithvam.spaccounts;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.support.annotation.StringRes;
@@ -29,7 +30,7 @@ import java.util.logging.Logger;
 public class Common {
 
     //Constants-----------------------
-    static String preferenceName="SPA";
+    static String preferenceName="SPA",INTERNALCOMPANY="InternalCompanyIncluded";
     static final int SALES=123,PURCHASE=456,CUSTOMER=798,SUPPLIER=987;
     //Custom adapter constants
     static final String SALESLIST="sales",
@@ -109,6 +110,12 @@ public class Common {
     }
 
 
+    //
+    static String getInternalCompanySettings(Context context){//To get the settings
+        SharedPreferences sharedpreferences = context.getSharedPreferences(Common.preferenceName, Context.MODE_PRIVATE);
+        String intComInc=sharedpreferences.getString(Common.INTERNALCOMPANY,"0");
+        return intComInc;
+    }
     //Threading: to load data from a server----------------------------------------
     ArrayList<String[]> dataArrayList=new ArrayList<>();
     String json;

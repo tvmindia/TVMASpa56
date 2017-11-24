@@ -9,7 +9,6 @@ import android.widget.CompoundButton;
 import android.widget.Switch;
 
 public class Settings extends AppCompatActivity {
-  final static String INTERNALCOMPANY="InternalCompanyIncluded";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,17 +18,17 @@ public class Settings extends AppCompatActivity {
         SharedPreferences sharedpreferences = getSharedPreferences(Common.preferenceName, Context.MODE_PRIVATE);
         final SharedPreferences.Editor editor = sharedpreferences.edit();
 
-        String intComInc=sharedpreferences.getString(INTERNALCOMPANY,"0");
+        String intComInc=sharedpreferences.getString(Common.INTERNALCOMPANY,"0");
         internalCompanySwitch.setChecked(intComInc.equals("1")?true:false);
 
         internalCompanySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked) {
-                    editor.putString(INTERNALCOMPANY, "1");
+                    editor.putString(Common.INTERNALCOMPANY, "1");
                     editor.apply();
                 } else {
-                    editor.putString(INTERNALCOMPANY, "0");
+                    editor.putString(Common.INTERNALCOMPANY, "0");
                     editor.apply();
                 }
             }
