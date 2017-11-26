@@ -17,6 +17,7 @@ import android.widget.Spinner;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Suppliers extends AppCompatActivity {
@@ -149,7 +150,7 @@ public class Suppliers extends AppCompatActivity {
             @Override
             public boolean onQueryTextChange(String newText) {
                 if(suppliersList.getAdapter()!=null){//for searching
-                    ((CustomAdapter)suppliersList.getAdapter()).getFilter(1).filter(searchView.getQuery().toString().trim());
+                    ((CustomAdapter)suppliersList.getAdapter()).getFilter(Arrays.asList(1)).filter(searchView.getQuery().toString().trim());
                 }
                 return false;
             }

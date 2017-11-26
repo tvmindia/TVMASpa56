@@ -17,6 +17,7 @@ import org.json.JSONObject;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 
 public class CustomAdapter extends BaseAdapter {
@@ -321,8 +322,8 @@ public class CustomAdapter extends BaseAdapter {
     //Filtering--------------------------------------
     private ItemFilter mFilter = new ItemFilter();
     private ArrayList<String[]> filteredObjects;
-    private int dataItemPosition;
-    Filter getFilter(int dataItem) {
+    private List<Integer> dataItemPosition;
+    Filter getFilter(List<Integer> dataItem) {
         dataItemPosition=dataItem;
         return mFilter;
     }
@@ -335,8 +336,11 @@ public class CustomAdapter extends BaseAdapter {
             final ArrayList<String[]> filteredList = new ArrayList<String[]>(count);
 
             for (int i = 0; i < count; i++) {
-                if (objects.get(i)[dataItemPosition].toLowerCase().contains(filterString)) {
-                    filteredList.add(objects.get(i));
+                for(int j=0;j<dataItemPosition.size();j++) {
+                    if (objects.get(i)[dataItemPosition.get(j)].toLowerCase().contains(filterString)) {
+                        filteredList.add(objects.get(i));
+                        break;//found at least one item
+                    }
                 }
             }
 
