@@ -63,7 +63,7 @@ public class Suppliers extends AppCompatActivity {
         //Threading------------------------------------------------------------------------------------------------------
         final Common common = new Common();
         String webService = "API/Supplier/GetAllSuppliersDetailForMobile";
-        String postData = "";
+        String postData = "{\"IsInternalComp\":\""+Common.getInternalCompanySettings(Suppliers.this)+"\"}";
         AVLoadingIndicatorView loadingIndicator = (AVLoadingIndicatorView) findViewById(R.id.loading_indicator);
         String[] dataColumns = {"ID",//0
                 "CompanyName",//1

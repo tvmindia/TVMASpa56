@@ -36,10 +36,11 @@ public class Invoices extends AppCompatActivity {
         String postData="";
         switch (getIntent().getExtras().getInt(Common.CUSTOMER_OR_SUPPLIER)){
             case Common.CUSTOMER:webService="API/InvoiceSummary/GetOutstandingInvoicesForMobile";
-                postData = "{\"customerObj\":{\"ID\":\""+getIntent().getExtras().getString(Common.CUSTOMERID)+"\"}}";
+                postData = "{\"customerObj\":{\"ID\":\""+getIntent().getExtras().getString(Common.CUSTOMERID)+"\",\"IsInternalComp\":\""+Common.getInternalCompanySettings(Invoices.this)+"\"}}";
+                Common.toastMessage(Invoices.this,postData);
                 break;
             case Common.SUPPLIER:webService="API/PurchaseSummary/GetSupplierOutstandingInvoicesForMobile";
-                postData = "{\"suppliersObj\":{\"ID\":\""+getIntent().getExtras().getString(Common.SUPPLIERID)+"\"}}";
+                postData = "{\"suppliersObj\":{\"ID\":\""+getIntent().getExtras().getString(Common.SUPPLIERID)+"\",\"IsInternalComp\":\""+Common.getInternalCompanySettings(Invoices.this)+"\"}}";
                 break;
         }
         AVLoadingIndicatorView loadingIndicator =(AVLoadingIndicatorView) findViewById(R.id.loading_indicator);

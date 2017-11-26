@@ -4,8 +4,8 @@
     <!--<string name="url" translatable="false">http://192.168.1.109:321/</string>-->
     <!--<string name="url" translatable="false">http://www.spappsportal.com/</string>-->
     <!--8 is  test and 7 is hosted-->
-    <string name="url" translatable="false">http://jdadmin-001-site8.itempurl.com/</string>
-    <!--<string name="url" translatable="false">http://jdadmin-001-site7.itempurl.com/</string>-->
+    <!--<string name="url" translatable="false">http://jdadmin-001-site8.itempurl.com/</string>-->
+    <string name="url" translatable="false">http://jdadmin-001-site7.itempurl.com/</string>
     <string name="rupees">₹ %1$s</string>
     <string name="failed_try_again">Failed attempt. Please try again</string>
     <string name="failed_server">Failed to get data from server.</string>111
