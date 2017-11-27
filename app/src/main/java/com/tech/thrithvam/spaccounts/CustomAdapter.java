@@ -302,6 +302,8 @@ public class CustomAdapter extends BaseAdapter {
                     holder.paidAmount=(TextView)convertView.findViewById(R.id.paid_amount);
                     holder.currentAmount=(TextView)convertView.findViewById(R.id.current_amount);
                     holder.balAmount=(TextView)convertView.findViewById(R.id.balance_amount);
+                    holder.dueDays = (TextView)convertView.findViewById(R.id.due_days);
+                    holder.paymentdate = (TextView)convertView.findViewById(R.id.payment_due_date);
                     convertView.setTag(holder);
                 } else {
                     holder = (Holder) convertView.getTag();
@@ -312,6 +314,8 @@ public class CustomAdapter extends BaseAdapter {
                 holder.paidAmount.setText((filteredObjects.get(position)[2].equals("null")?"-":adapterContext.getResources().getString(R.string.previous_payment_label,filteredObjects.get(position)[2])));
                 holder.currentAmount.setText((filteredObjects.get(position)[3].equals("null")?"-":adapterContext.getResources().getString(R.string.rupees,filteredObjects.get(position)[3])));
                 holder.balAmount.setText((filteredObjects.get(position)[4].equals("null")?"-":adapterContext.getResources().getString(R.string.balance_amount_label,filteredObjects.get(position)[4])));
+                holder.dueDays.setText((filteredObjects.get(position)[5].equals("null")?"-":adapterContext.getResources().getString(R.string.due_days,filteredObjects.get(position)[5])));
+                holder.paymentdate.setText((filteredObjects.get(position)[6].equals("null")?"-":adapterContext.getResources().getString(R.string.payment_due_date,filteredObjects.get(position)[6])));
                 break;
             default:
                 break;

@@ -105,12 +105,20 @@ public class ApprovalDetails extends AppCompatActivity {
                     for (int i = 0; i < records.length(); i++) {
                         JSONObject jsonObject1 = records.getJSONObject(i);
                         JSONObject jsonObject2= jsonObject1.getJSONObject("supplierPaymentsDetailObj");
-                        String[] data = new String[5];
+                        String[] data = new String[7];
                         data[0] = jsonObject2.getString("InvoiceNo");
                         data[1] = jsonObject2.getString("InvoiceAmount");
                         data[2] = jsonObject2.getString("PrevPayment");
                         data[3] = jsonObject2.getString("CurrPayment");
                         data[4] = jsonObject2.getString("BalancePayment");
+                        if(jsonObject2.has("DueDays"))
+                            data[5] = jsonObject2.getString("DueDays");
+                        else
+                            data[5] = "-";
+                        if(jsonObject2.has("PaymentDueDate"))
+                            data[6] = jsonObject2.getString("PaymentDueDate");
+                        else
+                            data[6]="-";
                         dataArrayList.add(data);
                     }
                 } catch (JSONException e) {
