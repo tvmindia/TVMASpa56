@@ -105,7 +105,7 @@ public class ApprovalDetails extends AppCompatActivity {
                     for (int i = 0; i < records.length(); i++) {
                         JSONObject jsonObject1 = records.getJSONObject(i);
                         JSONObject jsonObject2= jsonObject1.getJSONObject("supplierPaymentsDetailObj");
-                        String[] data = new String[7];
+                        String[] data = new String[8];
                         data[0] = jsonObject2.getString("InvoiceNo");
                         data[1] = jsonObject2.getString("InvoiceAmount");
                         data[2] = jsonObject2.getString("PrevPayment");
@@ -119,10 +119,11 @@ public class ApprovalDetails extends AppCompatActivity {
                             data[6] = jsonObject2.getString("PaymentDueDate");
                         else
                             data[6]="-";
+                        data[7]=jsonObject1.getString("Type");
                         dataArrayList.add(data);
                     }
                 } catch (JSONException e) {
-                    Toast.makeText(ApprovalDetails.this, "Some error occured", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ApprovalDetails.this, "Some error occurred\n"+ e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
                 CustomAdapter adapter=new CustomAdapter(ApprovalDetails.this,dataArrayList,Common.APPROVALDETAILLIST);
                 ListView approvalList=(ListView)findViewById(R.id.approval_detail_list);

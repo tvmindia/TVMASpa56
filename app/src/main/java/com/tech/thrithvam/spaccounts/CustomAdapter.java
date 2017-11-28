@@ -66,7 +66,7 @@ public class CustomAdapter extends BaseAdapter {
         //Approvals-----------------
         TextView entryNo,paymentMode,paymentdate;
         //ApprovalDetails-----------
-        TextView invoiceAmount,currentAmount;
+        TextView invoiceAmount,currentAmount,currentAmountLabel;
     }
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -149,7 +149,7 @@ public class CustomAdapter extends BaseAdapter {
                             int dueDays=Integer.parseInt(filteredObjects.get(position)[8]);
                             holder.dueDays.setVisibility(View.VISIBLE);
                             if(dueDays<0){
-                                holder.dueDays.setText(adapterContext.getResources().getString(R.string.days_passed_due,Integer.toString(dueDays*-1)));
+                                holder.dueDays.setText(adapterContext.getResources().getString(R.string.days_past_due,Integer.toString(dueDays*-1)));
 
                                 if(Double.parseDouble(filteredObjects.get(position)[5])>0){
                                     holder.balAmount.setTextColor(Color.RED);
@@ -195,7 +195,7 @@ public class CustomAdapter extends BaseAdapter {
                         int dueDays=Integer.parseInt(filteredObjects.get(position)[8]);
                         holder.dueDays.setVisibility(View.VISIBLE);
                         if(dueDays<0){
-                            holder.dueDays.setText(adapterContext.getResources().getString(R.string.days_passed_due,Integer.toString(dueDays*-1)));
+                            holder.dueDays.setText(adapterContext.getResources().getString(R.string.days_past_due,Integer.toString(dueDays*-1)));
 
                             if(Double.parseDouble(filteredObjects.get(position)[5])<0){
                                 holder.balAmount.setTextColor(Color.RED);
@@ -301,6 +301,7 @@ public class CustomAdapter extends BaseAdapter {
                     holder.invoiceAmount=(TextView)convertView.findViewById(R.id.invoice_amount);
                     holder.paidAmount=(TextView)convertView.findViewById(R.id.paid_amount);
                     holder.currentAmount=(TextView)convertView.findViewById(R.id.current_amount);
+                    holder.currentAmountLabel=(TextView)convertView.findViewById(R.id.current_amount_label);
                     holder.balAmount=(TextView)convertView.findViewById(R.id.balance_amount);
                     holder.dueDays = (TextView)convertView.findViewById(R.id.due_days);
                     holder.paymentdate = (TextView)convertView.findViewById(R.id.payment_due_date);
@@ -309,13 +310,33 @@ public class CustomAdapter extends BaseAdapter {
                     holder = (Holder) convertView.getTag();
                 }
                 //Label loading--------------------
-                holder.invoiceNo.setText((filteredObjects.get(position)[0].equals("null")?"-":filteredObjects.get(position)[0]));
-                holder.invoiceAmount.setText((filteredObjects.get(position)[1].equals("null")?"-":adapterContext.getResources().getString(R.string.invoice_amount_label,filteredObjects.get(position)[1])));
-                holder.paidAmount.setText((filteredObjects.get(position)[2].equals("null")?"-":adapterContext.getResources().getString(R.string.previous_payment_label,filteredObjects.get(position)[2])));
-                holder.currentAmount.setText((filteredObjects.get(position)[3].equals("null")?"-":adapterContext.getResources().getString(R.string.rupees,filteredObjects.get(position)[3])));
-                holder.balAmount.setText((filteredObjects.get(position)[4].equals("null")?"-":adapterContext.getResources().getString(R.string.balance_amount_label,filteredObjects.get(position)[4])));
-                holder.dueDays.setText((filteredObjects.get(position)[5].equals("null")?"-":adapterContext.getResources().getString(R.string.due_days,filteredObjects.get(position)[5])));
-                holder.paymentdate.setText((filteredObjects.get(position)[6].equals("null")?"-":adapterContext.getResources().getString(R.string.payment_due_date,filteredObjects.get(position)[6])));
+                if(!filteredObjects.get(position)[7].equals("Advance")) {
+                    holder.currentAmountLabel.setText(adapterContext.getResources().getText(R.string.current_amount_label));
+                    holder.invoiceNo.setVisibility(View.VISIBLE);
+                    holder.invoiceAmount.setVisibility(View.VISIBLE);
+                    holder.paidAmount.setVisibility(View.VISIBLE);
+                    holder.balAmount.setVisibility(View.VISIBLE);
+                    holder.dueDays.setVisibility(View.VISIBLE);
+                    holder.paymentdate.setVisibility(View.VISIBLE);
+
+                    holder.invoiceNo.setText((filteredObjects.get(position)[0].equals("null") ? "-" : filteredObjects.get(position)[0]));
+                    holder.invoiceAmount.setText((filteredObjects.get(position)[1].equals("null") ? "-" : adapterContext.getResources().getString(R.string.invoice_amount_label, filteredObjects.get(position)[1])));
+                    holder.paidAmount.setText((filteredObjects.get(position)[2].equals("null") ? "-" : adapterContext.getResources().getString(R.string.previous_payment_label, filteredObjects.get(position)[2])));
+                    holder.currentAmount.setText((filteredObjects.get(position)[3].equals("null") ? "-" : adapterContext.getResources().getString(R.string.rupees, filteredObjects.get(position)[3])));
+                    holder.balAmount.setText((filteredObjects.get(position)[4].equals("null") ? "-" : adapterContext.getResources().getString(R.string.balance_amount_label, filteredObjects.get(position)[4])));
+                    holder.dueDays.setText((filteredObjects.get(position)[5].equals("null") ? "-" : adapterContext.getResources().getString(R.string.days_past_due, filteredObjects.get(position)[5])));
+                    holder.paymentdate.setText((filteredObjects.get(position)[6].equals("null") ? "-" : adapterContext.getResources().getString(R.string.payment_due_date, filteredObjects.get(position)[6])));
+                }
+                else {
+                    holder.currentAmountLabel.setText(adapterContext.getResources().getText(R.string.advance_amount_label));
+                    holder.invoiceNo.setVisibility(View.GONE);
+                    holder.invoiceAmount.setVisibility(View.GONE);
+                    holder.paidAmount.setVisibility(View.GONE);
+                    holder.currentAmount.setText((filteredObjects.get(position)[3].equals("null") ? "-" : adapterContext.getResources().getString(R.string.rupees, filteredObjects.get(position)[1])));//invoice amount is advance
+                    holder.balAmount.setVisibility(View.GONE);
+                    holder.dueDays.setVisibility(View.GONE);
+                    holder.paymentdate.setVisibility(View.GONE);
+                }
                 break;
             default:
                 break;
