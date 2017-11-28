@@ -88,19 +88,22 @@ xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:id="@+id/total_summary"/>
+                android:id="@+id/total_summary"
+                android:animateLayoutChanges="true"/>
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:animateLayoutChanges="true">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:id="@+id/data_values_linear"
+                android:animateLayoutChanges="true"
                 android:padding="10dp"
                 />
         </LinearLayout>

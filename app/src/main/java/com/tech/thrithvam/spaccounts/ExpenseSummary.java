@@ -9,7 +9,9 @@ import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,7 +19,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
+import android.widget.Filter;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -30,6 +34,7 @@ import org.json.JSONObject;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -177,6 +182,7 @@ public class ExpenseSummary extends AppCompatActivity {
                         ((TextView)dataItem.findViewById(R.id.label)).setText(expenseListData.get(i)[1].equals("null")?"-":expenseListData.get(i)[1]);
                         totalAmount+=Double.parseDouble(expenseListData.get(i)[0]);
                         dataValuesLinear.addView(dataItem);
+                        lists.add(dataItem);//for searching
                     }
                     //Total
                     View dataItem=inflater.inflate(R.layout.item_label_value,null);
@@ -212,15 +218,52 @@ public class ExpenseSummary extends AppCompatActivity {
         asyncTasks.add(common.asyncTask);
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     }
+    SearchView searchView;
+    static ArrayList<View> lists=new ArrayList<>();
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_home, menu);
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_home_search, menu);
+        //Searching-------------------
+        searchView=(SearchView) menu.findItem(R.id.menu_search).getActionView();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                try {
+                    for (int i = 0; i < lists.size(); i++) {
+                        String label = ((TextView)lists.get(i).findViewById(R.id.label)).getText().toString();
+                        if (label.toLowerCase().contains(searchView.getQuery().toString().toLowerCase().trim())) {
+                            lists.get(i).setVisibility(View.VISIBLE);
+                        } else {
+                            lists.get(i).setVisibility(View.GONE);
+                        }
+                    }
+                }
+                catch (Exception e){
+//                                      Common.toastMessage(ExpenseSummary.this,e.getMessage());
+                }
+                return false;
+            }
+        });
+        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                for (int i = 0; i < lists.size(); i++) {
+                        lists.get(i).setVisibility(View.VISIBLE);
+                }
+                return false;
+            }
+        });
         return true;
     }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
+
         if (id == R.id.menu_home) {
             Intent intent=new Intent(this,HomeScreen.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK
