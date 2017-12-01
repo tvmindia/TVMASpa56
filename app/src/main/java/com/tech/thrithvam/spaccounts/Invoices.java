@@ -37,7 +37,6 @@ public class Invoices extends AppCompatActivity {
         switch (getIntent().getExtras().getInt(Common.CUSTOMER_OR_SUPPLIER)){
             case Common.CUSTOMER:webService="API/InvoiceSummary/GetOutstandingInvoicesForMobile";
                 postData = "{\"customerObj\":{\"ID\":\""+getIntent().getExtras().getString(Common.CUSTOMERID)+"\",\"IsInternalComp\":\""+Common.getInternalCompanySettings(Invoices.this)+"\"}}";
-                Common.toastMessage(Invoices.this,postData);
                 break;
             case Common.SUPPLIER:webService="API/PurchaseSummary/GetSupplierOutstandingInvoicesForMobile";
                 postData = "{\"suppliersObj\":{\"ID\":\""+getIntent().getExtras().getString(Common.SUPPLIERID)+"\",\"IsInternalComp\":\""+Common.getInternalCompanySettings(Invoices.this)+"\"}}";

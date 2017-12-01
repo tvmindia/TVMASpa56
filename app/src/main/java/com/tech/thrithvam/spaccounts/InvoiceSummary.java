@@ -311,7 +311,7 @@ public class InvoiceSummary extends AppCompatActivity {
                     //Threading------------------------------------------------------------------------------------------------------
                     final Common common = new Common();
                     String webService = "API/InvoiceSummary/GetOpenInvoicesForMobile";
-                    String postData = "\"IsInternalComp\":\""+Common.getInternalCompanySettings(getContext())+"\"}";
+                    String postData = "{\"customerObj\":{\"IsInternalComp\":\""+Common.getInternalCompanySettings(getContext())+"\"}}";
                     AVLoadingIndicatorView loadingIndicator = (AVLoadingIndicatorView) rootView.findViewById(R.id.loading_indicator);
                     String[] dataColumns = {};
                     Runnable postThread = new Runnable() {
@@ -509,7 +509,7 @@ public class InvoiceSummary extends AppCompatActivity {
                 //Threading------------------------------------------------------------------------------------------------------
                 final Common common = new Common();
                 String webService = "/API/InvoiceSummary/GetCustomerInvoicesByDateWiseForMobile";
-                String postData = "{\"FromDate\":\""+startDate.getText().toString()+"\",\"ToDate\":\""+endDate.getText().toString()+"\",\"suppliersObj\":{\"IsInternalComp\":\""+Common.getInternalCompanySettings(getContext())+"\"}}";
+                String postData = "{\"FromDate\":\""+startDate.getText().toString()+"\",\"ToDate\":\""+endDate.getText().toString()+"\",\"customerObj\":{\"IsInternalComp\":\""+Common.getInternalCompanySettings(getContext())+"\"}}";
                 AVLoadingIndicatorView loadingIndicator = (AVLoadingIndicatorView) rootView.findViewById(R.id.loading_indicator);
                 String[] dataColumns = {};
                 Runnable postThread = new Runnable() {
