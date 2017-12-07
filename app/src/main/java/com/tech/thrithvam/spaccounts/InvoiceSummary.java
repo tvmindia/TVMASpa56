@@ -103,7 +103,7 @@ public class InvoiceSummary extends AppCompatActivity {
             }
             @Override
             public boolean onQueryTextChange(String newText) {
-                for(int i=0;i<lists.size();i++) {
+                for(int i=lists.size()-1;i>=0;i--) {
                     final int Fi=i;
                     CustomAdapter adapter = (CustomAdapter) lists.get(i).getAdapter();
                     if (adapter != null) {//for searching

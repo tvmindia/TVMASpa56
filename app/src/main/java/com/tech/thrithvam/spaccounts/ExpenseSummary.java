@@ -234,7 +234,7 @@ public class ExpenseSummary extends AppCompatActivity {
             @Override
             public boolean onQueryTextChange(String newText) {
                 try {
-                    for (int i = 0; i < lists.size(); i++) {
+                    for (int i=lists.size()-1;i>=0;i--) {
                         String label = ((TextView)lists.get(i).findViewById(R.id.label)).getText().toString();
                         if (label.toLowerCase().contains(searchView.getQuery().toString().toLowerCase().trim())) {
                             lists.get(i).setVisibility(View.VISIBLE);
