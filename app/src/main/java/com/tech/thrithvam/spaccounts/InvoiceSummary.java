@@ -103,6 +103,8 @@ public class InvoiceSummary extends AppCompatActivity {
             }
             @Override
             public boolean onQueryTextChange(String newText) {
+
+                final TabLayout tabHost = (TabLayout) findViewById(R.id.tabs);
                 for(int i=lists.size()-1;i>=0;i--) {
                     final int Fi=i;
                     CustomAdapter adapter = (CustomAdapter) lists.get(i).getAdapter();
@@ -111,7 +113,6 @@ public class InvoiceSummary extends AppCompatActivity {
                             public void onFilterComplete(int count) {
                                 if(count>0){
                                     try {
-                                        TabLayout tabHost = (TabLayout) findViewById(R.id.tabs);
                                         tabHost.getTabAt(Fi).select();
                                     }
                                     catch (Exception e){
