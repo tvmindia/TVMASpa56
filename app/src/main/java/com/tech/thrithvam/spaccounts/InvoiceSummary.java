@@ -109,7 +109,7 @@ public class InvoiceSummary extends AppCompatActivity {
                     final int Fi=i;
                     CustomAdapter adapter = (CustomAdapter) lists.get(i).getAdapter();
                     if (adapter != null) {//for searching
-                        adapter.getFilter(Arrays.asList(1, 3, 7)).filter(searchView.getQuery().toString().trim(),new Filter.FilterListener() {
+                        adapter.getFilter(Arrays.asList(1, 3, 7)).filter(searchView.getQuery().toString().trim());/*,new Filter.FilterListener() {
                             public void onFilterComplete(int count) {
                                 if(count>0){
                                     try {
@@ -120,7 +120,7 @@ public class InvoiceSummary extends AppCompatActivity {
                                     }
                                 }
                             }
-                        });
+                        });*/
                     }
                 }
                 return false;
