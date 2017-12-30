@@ -66,7 +66,7 @@ public class Customers extends AppCompatActivity {
         //Threading------------------------------------------------------------------------------------------------------
         final Common common = new Common();
         String webService = "API/Customer/GetCustomerDetailsMobile";
-        String postData = "{\"IsInternalComp\":\""+Common.getInternalCompanySettings(Customers.this)+"\"}";
+        String postData = "{\"IsInternalComp\":"+Common.getInternalCompanySettings(Customers.this)+"}";
         AVLoadingIndicatorView loadingIndicator = (AVLoadingIndicatorView) findViewById(R.id.loading_indicator);
         String[] dataColumns = {"ID",//0
                                 "CompanyName",//1

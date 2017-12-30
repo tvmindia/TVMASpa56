@@ -95,7 +95,7 @@ public class HomeScreen extends AppCompatActivity {
         //Threading------------------------------------------------------------------------------------------------------
         final Common common = new Common();
         String webService = "API/HomeScreenChart/SalesSummaryChartForMobile";
-        String postData = "{\"duration\":\""+duration+"\",\"IsInternalComp\":\""+Common.getInternalCompanySettings(HomeScreen.this)+"\"}";
+        String postData = "{\"duration\":\""+duration+"\",\"IsInternalComp\":"+Common.getInternalCompanySettings(HomeScreen.this)+"}";
         AVLoadingIndicatorView loadingIndicator = (AVLoadingIndicatorView) findViewById(R.id.loading_indicator);
         String[] dataColumns = {"Period",//0
                 "Amount",//1
