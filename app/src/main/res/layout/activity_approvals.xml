@@ -2,34 +2,42 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     tools:context="com.tech.thrithvam.spaccounts.Approvals"
     android:background="@drawable/primary_gradient">
-    <ListView
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:popupTheme="@style/AppTheme.PopupOverlay">
+
+        </android.support.v7.widget.Toolbar>
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tabs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:tabIndicatorColor="@android:color/white" />
+
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.view.ViewPager
+        android:layout_below="@id/appbar"
+        android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/approvals_list"
-        android:divider="@null"
-        android:paddingTop="3dp"
-        android:scrollbars="none"/>
-    <com.wang.avi.AVLoadingIndicatorView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:indicatorName="BallScaleMultipleIndicator"
-        android:layout_gravity="center"
-        app:indicatorColor="@android:color/white"
-        android:id="@+id/loading_indicator"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="7dp"
-        android:gravity="center"
-        android:textColor="@color/secondary_text"
-        android:text="@string/no_items"
-        android:visibility="gone"
-        android:id="@+id/no_items"/>
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
 </RelativeLayout>

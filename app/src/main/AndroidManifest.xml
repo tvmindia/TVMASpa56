@@ -69,7 +69,8 @@
         <activity
             android:name=".Approvals"
             android:configChanges="orientation|screenSize"
-            android:label="Pending for Approval" />
+            android:label="Pending for Approval"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ApprovalDetails"
             android:configChanges="orientation|screenSize"
