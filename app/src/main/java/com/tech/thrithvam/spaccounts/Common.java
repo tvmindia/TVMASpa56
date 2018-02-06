@@ -38,7 +38,8 @@ public class Common {
             CUSTOMERSLIST="customers",
             SUPPLIERSLIST="suppliers",
             APPROVALLIST="approvals",
-            APPROVALDETAILLIST="approvaldetails"
+            APPROVALDETAILLIST="approvaldetails",
+            OTHEREXPENSEAPPROVALLIST="otherapprovallist"
                     ;
     //Intent constants
     static final String CUSTOMERID="customerID",

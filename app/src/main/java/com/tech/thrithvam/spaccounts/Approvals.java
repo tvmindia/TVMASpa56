@@ -101,7 +101,7 @@ public class Approvals extends AppCompatActivity {
        @Override
        public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                                 Bundle savedInstanceState) {
-           final View rootView = inflater.inflate(R.layout.fragment_approval_list, container, false);
+           final View rootView = inflater.inflate(R.layout.fragment_approval_list, container, false);//same list for both pending and other expense approvals
            final LinearLayout fragmentLinear=(LinearLayout)rootView.findViewById(R.id.fragment_linear);
            //final ListView invoiceList=(ListView)rootView.findViewById(R.id.invoice_list);
            //lists.add(invoiceList);
@@ -109,7 +109,7 @@ public class Approvals extends AppCompatActivity {
                getApprovals(rootView);
            }
            else if(getArguments().getInt(ARG_SECTION_NUMBER)==2) {//open
-
+               getOtherExpenseApprovals(rootView);
            }
            return rootView;
        }
@@ -135,6 +135,61 @@ public class Approvals extends AppCompatActivity {
                        rootView.findViewById(R.id.no_items).setVisibility(View.VISIBLE);
                    }
                    CustomAdapter adapter=new CustomAdapter(getContext(),common.dataArrayList,Common.APPROVALLIST);
+                   ListView approvalList=(ListView)rootView.findViewById(R.id.approvals_list);
+                   approvalList.setAdapter(adapter);
+                   approvalList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                       @Override
+                       public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                           Intent approvalDetailsIntent=new Intent(getContext(),ApprovalDetails.class);
+                           approvalDetailsIntent.putExtra(Common.APPROVALID,common.dataArrayList.get(position)[0]);
+                           approvalDetailsIntent.putExtra(Common.ENTRYNO,common.dataArrayList.get(position)[1]);
+                           approvalDetailsIntent.putExtra(Common.PAYMENT_MODE,common.dataArrayList.get(position)[2]);
+                           approvalDetailsIntent.putExtra(Common.PAYMENT_DATE,common.dataArrayList.get(position)[3]);
+                           approvalDetailsIntent.putExtra(Common.AMOUNT,common.dataArrayList.get(position)[4]);
+                           approvalDetailsIntent.putExtra(Common.COMPANY_DETAILS,common.dataArrayList.get(position)[5]);
+                           approvalDetailsIntent.putExtra(Common.GENERAL_NOTES,common.dataArrayList.get(position)[6]);
+                           startActivity(approvalDetailsIntent);
+                       }
+                   });
+               }
+           };
+           Runnable postThreadFailed = new Runnable() {
+               @Override
+               public void run() {
+                   Common.toastMessage(getContext(), R.string.failed_server);
+               }
+           };
+
+           common.AsynchronousThread(getContext(),
+                   webService,
+                   postData,
+                   loadingIndicator,
+                   dataColumns,
+                   postThread,
+                   postThreadFailed);
+           asyncTasks.add(common.asyncTask);
+           //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+       }
+       void getOtherExpenseApprovals(final View rootView){
+           //Threading------------------------------------------------------------------------------------------------------
+           final Common common = new Common();
+           String webService = "/API/Expense/GetAllPendingForApprovalExpenseByPostForMobile";
+           String postData = "";
+           AVLoadingIndicatorView loadingIndicator = (AVLoadingIndicatorView) rootView.findViewById(R.id.loading_indicator);
+           String[] dataColumns = {"ID",//0
+                   "RefNo",//1
+                   "ExpenseDate",//2
+                   "Description",//3
+                   "Amount" //4
+           };
+           Runnable postThread = new Runnable() {
+               @Override
+               public void run() {
+                   if(common.dataArrayList.size()==0)
+                   {
+                       rootView.findViewById(R.id.no_items).setVisibility(View.VISIBLE);
+                   }
+                   CustomAdapter adapter=new CustomAdapter(getContext(),common.dataArrayList,Common.OTHEREXPENSEAPPROVALLIST);
                    ListView approvalList=(ListView)rootView.findViewById(R.id.approvals_list);
                    approvalList.setAdapter(adapter);
                    approvalList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -199,9 +254,9 @@ public class Approvals extends AppCompatActivity {
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return "Pending Approvals";
+                    return "Payment Approval";
                 case 1:
-                    return "Expenses";
+                    return "Other Expense Approval";
             }
             return null;
         }

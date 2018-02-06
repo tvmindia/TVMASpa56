@@ -67,6 +67,8 @@ public class CustomAdapter extends BaseAdapter {
         TextView entryNo,paymentMode,paymentdate;
         //ApprovalDetails-----------
         TextView invoiceAmount,currentAmount,currentAmountLabel;
+        //Other expense approval
+        TextView expNo,expDate,description;
     }
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -337,6 +339,25 @@ public class CustomAdapter extends BaseAdapter {
                     holder.dueDays.setVisibility(View.GONE);
                     holder.paymentdate.setVisibility(View.GONE);
                 }
+                break;
+            //--------------------------for other expense approval list items------------------
+            case Common.OTHEREXPENSEAPPROVALLIST:
+                if (convertView == null) {
+                    holder = new Holder();
+                    convertView = inflater.inflate(R.layout.item_expense_approval, null);
+                    holder.expNo = (TextView) convertView.findViewById(R.id.exp_no);
+                    holder.expDate=(TextView)convertView.findViewById(R.id.exp_date);
+                    holder.description=(TextView)convertView.findViewById(R.id.description);
+                    holder.amount=(TextView)convertView.findViewById(R.id.amount);
+                    convertView.setTag(holder);
+                } else {
+                    holder = (Holder) convertView.getTag();
+                }
+                //Label loading--------------------
+                holder.expNo.setText((filteredObjects.get(position)[1].equals("null")?"-":filteredObjects.get(position)[1]));
+                holder.expDate.setText((filteredObjects.get(position)[2].equals("null")?"-":filteredObjects.get(position)[2]));
+                holder.description.setText((filteredObjects.get(position)[3].equals("null")?"-":filteredObjects.get(position)[3]));
+                holder.amount.setText((filteredObjects.get(position)[4].equals("null")?"-":adapterContext.getResources().getString(R.string.rupees,filteredObjects.get(position)[4])));
                 break;
             default:
                 break;
