@@ -195,14 +195,9 @@ public class Approvals extends AppCompatActivity {
                    approvalList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                        @Override
                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                           Intent approvalDetailsIntent=new Intent(getContext(),ApprovalDetails.class);
+                           Intent approvalDetailsIntent=new Intent(getContext(),ApprovalExpenseDetails.class);
                            approvalDetailsIntent.putExtra(Common.APPROVALID,common.dataArrayList.get(position)[0]);
-                           approvalDetailsIntent.putExtra(Common.ENTRYNO,common.dataArrayList.get(position)[1]);
-                           approvalDetailsIntent.putExtra(Common.PAYMENT_MODE,common.dataArrayList.get(position)[2]);
-                           approvalDetailsIntent.putExtra(Common.PAYMENT_DATE,common.dataArrayList.get(position)[3]);
-                           approvalDetailsIntent.putExtra(Common.AMOUNT,common.dataArrayList.get(position)[4]);
-                           approvalDetailsIntent.putExtra(Common.COMPANY_DETAILS,common.dataArrayList.get(position)[5]);
-                           approvalDetailsIntent.putExtra(Common.GENERAL_NOTES,common.dataArrayList.get(position)[6]);
+                           approvalDetailsIntent.putExtra(Common.REFNO,common.dataArrayList.get(position)[1]);
                            startActivity(approvalDetailsIntent);
                        }
                    });

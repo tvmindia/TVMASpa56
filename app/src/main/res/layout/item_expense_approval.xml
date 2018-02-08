@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_toLeftOf="@+id/amount"
             android:layout_toStartOf="@+id/amount"
-            android:text="Expiry No"
+            android:text="Expense No"
             android:textColor="@color/primary_text"
             android:textSize="15sp"
             android:textStyle="" />

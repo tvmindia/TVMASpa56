@@ -53,7 +53,8 @@ public class Common {
                         PAYMENT_DATE="paymentdate",
                         AMOUNT="amount",
                         COMPANY_DETAILS="companydetails",
-                        GENERAL_NOTES="generalnotes"
+                        GENERAL_NOTES="generalnotes",
+                        REFNO="refno"
                             ;
     //To load image from a url------------------------------------------------------
     static void LoadImage(Context context,ImageView imageView, String imageURL, int failImage){
