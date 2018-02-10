@@ -307,6 +307,7 @@ public class CustomAdapter extends BaseAdapter {
                     holder.balAmount=(TextView)convertView.findViewById(R.id.balance_amount);
                     holder.dueDays = (TextView)convertView.findViewById(R.id.due_days);
                     holder.paymentdate = (TextView)convertView.findViewById(R.id.payment_due_date);
+                    holder.customerName = (TextView)convertView.findViewById(R.id.company_name);
                     convertView.setTag(holder);
                 } else {
                     holder = (Holder) convertView.getTag();
@@ -328,6 +329,7 @@ public class CustomAdapter extends BaseAdapter {
                     holder.balAmount.setText((filteredObjects.get(position)[4].equals("null") ? "-" : adapterContext.getResources().getString(R.string.balance_amount_label, filteredObjects.get(position)[4])));
                     holder.dueDays.setText((filteredObjects.get(position)[5].equals("null") ? "-" : adapterContext.getResources().getString(R.string.days_past_due, filteredObjects.get(position)[5])));
                     holder.paymentdate.setText((filteredObjects.get(position)[6].equals("null") ? "-" : adapterContext.getResources().getString(R.string.payment_due_date, filteredObjects.get(position)[6])));
+                    holder.customerName.setText((filteredObjects.get(position)[8].equals("null") ? "-" : filteredObjects.get(position)[8]));
                 }
                 else {
                     holder.currentAmountLabel.setText(adapterContext.getResources().getText(R.string.advance_amount_label));

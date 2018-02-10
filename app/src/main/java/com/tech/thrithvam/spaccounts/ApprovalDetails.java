@@ -105,7 +105,7 @@ public class ApprovalDetails extends AppCompatActivity {
                     for (int i = 0; i < records.length(); i++) {
                         JSONObject jsonObject1 = records.getJSONObject(i);
                         JSONObject jsonObject2= jsonObject1.getJSONObject("supplierPaymentsDetailObj");
-                        String[] data = new String[8];
+                        String[] data = new String[9];
                         data[0] = jsonObject2.getString("InvoiceNo");
                         data[1] = jsonObject2.getString("InvoiceAmount");
                         data[2] = jsonObject2.getString("PrevPayment");
@@ -120,6 +120,7 @@ public class ApprovalDetails extends AppCompatActivity {
                         else
                             data[6]="-";
                         data[7]=jsonObject1.getString("Type");
+                        data[8]=jsonObject1.getJSONObject("CompanyObj").getString("Name");
                         dataArrayList.add(data);
                     }
                 } catch (JSONException e) {
