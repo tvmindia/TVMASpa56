@@ -206,7 +206,7 @@ public class Common {
                                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                                 String[] data = new String[dataColumns.length];
                                 for (int j = 0; j < dataColumns.length; j++) {
-                                    data[j] = jsonObject.optString(dataColumns[j]);
+                                    data[j] = jsonObject.optString(dataColumns[j],"null");//if such value is not there, null
                                 }
                                 dataArrayList.add(data);
                             }
